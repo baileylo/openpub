@@ -6,14 +6,13 @@ use Baileylo\Blog\User\Service\UserService;
 use Baileylo\Core\Laravel\Renderable;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Validator;
 
 class PasswordHandler extends Controller
 {
-    use Renderable;
-
     /** @var AuthManager */
     protected $auth;
 
@@ -41,13 +40,15 @@ class PasswordHandler extends Controller
     public function handleForm()
     {
         $data = $this->request->only('password', 'confirm');
+
+        /** @var \Illuminate\Validation\Validator $validator */
         $validator = Validator::make($data, [
             'password' => 'required|min:8',
-            'email' => 'required|same:password'
+            'confirm' => 'required|same:password'
         ]);
 
         if ($validator->fails()) {
-            $this->redirector->back()->withErrors($validator->getMessages(), 'password')->withInput();
+            $this->redirector->back()->withErrors($validator->errors(), 'password')->withInput();
         }
 
         $this->userService->updatePassword(\Auth::user(), $data['password']);

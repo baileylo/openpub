@@ -45,11 +45,11 @@ class SettingsHandler extends Controller
         /** @var \Illuminate\Validation\Validator $validator */
         $validator = Validator::make($data, [
             'name' => 'required|min:2',
-            'email' => 'required|email|unique:User:email:' . \Auth::user()->getId()
+            'email' => 'required|email|unique:User:email:' . $this->auth->user()->getId()
         ]);
 
         if ($validator->fails()) {
-            return $this->redirector->back()->withErrors($validator->getMessageBag(), 'settings')->withInput();
+            return $this->redirector->back()->withErrors($validator->errors(), 'settings')->withInput();
         }
 
         $this->userService->updateData(\Auth::user(), $data['name'], $data['email']);
