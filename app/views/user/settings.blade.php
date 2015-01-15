@@ -4,6 +4,7 @@
 
 @section('content')
     <h1>User Settings</h1>
+
     <div class="row">
         <div class="columns large-6">
             {{ Form::open(['method' => 'put']) }}
@@ -45,7 +46,7 @@
             {{ Form::close() }}
         </div>
         <div class="columns large-6">
-            {{ Form::open() }}
+            {{ Form::open(['route' => ['passwordHandler'], 'method' => 'put']) }}
                 <fieldset>
                     <legend>Change Password</legend>
 

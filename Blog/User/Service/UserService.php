@@ -22,7 +22,7 @@ class UserService
 
     public function updatePassword(User $user, $newPassword)
     {
-        $user->changePassword($newPassword, $this->hasher);
+        $user->changePassword($this->hasher, $newPassword);
         $this->userRepository->save($user);
     }
 
