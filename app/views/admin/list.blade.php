@@ -1,5 +1,7 @@
 @extends('layouts.full')
 
+@section('title')Admin &mdash; {{ $site->getTitle() }} @stop
+
 @section('content')
     @if ($unpublishedPosts->count())
     <table class="columns large-12">

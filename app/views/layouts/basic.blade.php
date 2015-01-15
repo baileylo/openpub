@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>My Blog</title>
+    <title>@yield('title', $site->getTitle())</title>
 
     <link rel="alternate" type="application/rss+xml" title="Infectious Learning &raquo; Feed" href="{{ route('feed.atom') }}" />
 

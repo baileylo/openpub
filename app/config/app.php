@@ -7,6 +7,7 @@ use Baileylo\BlogApp\Pagination\PaginationServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\PostServicesServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\RouteServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\SiteServiceProvider;
+use Baileylo\BlogApp\View\ViewServiceProvider;
 use Baileylo\Core\Laravel\Html\HtmlServiceProvider;
 use Baileylo\Core\Laravel\Validation\Mongo\MongoValidationServiceProvider;
 use Baileylo\Core\Mongo\MongoODMServiceProvider;
@@ -129,6 +130,8 @@ return array(
         HtmlServiceProvider::class,
         MongoValidationServiceProvider::class,
         SiteServiceProvider::class,
+
+        ViewServiceProvider::class,
 
         PostServicesServiceProvider::class,
         MongoODMServiceProvider::class,
