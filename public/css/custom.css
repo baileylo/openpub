@@ -1,0 +1,90 @@
+.nav-bar-item-logo {
+    position: relative;
+    width: 125px;
+    display: inline-block;
+    margin: 0 -10px !important;
+}
+
+.nav-bar-logo-container {
+    position: absolute;
+    top: -66px;
+    left: 0px;
+
+    z-index: 1;
+}
+
+#page-header {
+    margin-bottom: 30px;
+}
+
+.list-article .article-header {
+    font-weight: 600;
+}
+
+.list-article .article-content {
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.list-article .article-footer {
+    font-size: 0.9rem;
+    margin: 15px 0 20px;
+}
+
+.view-article .article-header {
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.view-article .article-content {
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.view-article .article-content p,
+.view-article .article-content a {
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.view-article .article-footer {
+    font-size: 0.9rem;
+    margin: 0px 0 20px;
+}
+
+*, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+pre > code {
+    display: block;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+form.link {
+    display: inline;
+}
+
+form.link button {
+    display: inline;
+    border: 0;
+    background: transparent;
+    color: #008cba;
+    line-height: inherit;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.875rem;
+}
+
+form.link button:hover {
+    color: #0078a0;
+}
+
+tfoot ul.pagination {
+    margin-bottom: 0;
+}
+

@@ -1,0 +1,28 @@
+Baileylo\Blog\Post\Post:
+  db: blog
+  type: document
+  embedMany:
+    categories:
+      targetDocument: Baileylo\Blog\Category\Category
+  fields:
+    id:
+      type: id
+      id: true
+    publishDate:
+      type: date
+    updatedAt:
+      type: date
+    slug:
+      type: string
+      index: true
+    title:
+      type: string
+    description:
+      type: string
+    markdown:
+      type: string
+    html:
+      type: string
+
+
+

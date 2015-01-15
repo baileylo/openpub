@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="bootstrap/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         syntaxCheck="false"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>./tests/unit</directory>
+        </testsuite>
+        <testsuite name="Blog">
+            <directory>./tests/unit/Blog</directory>
+        </testsuite>
+        <testsuite name="Core">
+            <directory>./tests/unit/Core</directory>
+        </testsuite>
+        <testsuite name="BlogApp">
+            <directory>./tests/unit/BlogApp</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
