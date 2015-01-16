@@ -2,6 +2,8 @@
 
 namespace Baileylo\Blog\Post;
 
+use Doctrine\ODM\MongoDB\Cursor;
+
 interface PostRepository
 {
     /**
@@ -24,11 +26,22 @@ interface PostRepository
      * A list of recently published posts.
      *
      * @param int $pageSize Number of posts to return
-     * @param int $skip   Number of posts to skip
+     * @param int $skip     Number of posts to skip
      *
      * @return Post[]
      */
     public function findRecentPosts($pageSize, $skip);
+
+    /**
+     * A list of recently published posts.
+     *
+     * @param string $categorySlug
+     * @param int    $pageSize Number of posts to return
+     * @param int    $skip     Number of posts to skip
+     *
+     * @return Post[]|Cursor
+     */
+    public function findRecentPostsByCategory($categorySlug, $pageSize, $skip);
 
     /**
      * @param String $slug URL Slug
@@ -56,7 +69,7 @@ interface PostRepository
      * Find all pips irregardless of their publish state
      *
      * @param int $pageSize Number of posts to return
-     * @param int $skip   Number of posts to skip
+     * @param int $skip     Number of posts to skip
      *
      * @return Post[]
      */
