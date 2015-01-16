@@ -1,6 +1,9 @@
 Baileylo\Blog\Post\Post:
   db: blog
   type: document
+  lifecycleCallbacks:
+    prePersist: [setUpdatedAt]
+    preUpdate: [setUpdatedAt]
   embedMany:
     categories:
       targetDocument: Baileylo\Blog\Category\Category
