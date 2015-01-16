@@ -14,7 +14,7 @@
         <div class="categories">
             <h6>Posted In:</h6>
             @foreach($post->getCategories() as $category)
-                <span href="#" class="button tiny round">{{{ $category->getName() }}}</span>
+                <a href="{{ route('category', $category->getSlug()) }}" class="button tiny round">{{{ $category->getName() }}}</a>
             @endforeach
         </div>
 

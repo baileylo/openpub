@@ -2,6 +2,7 @@
 
 namespace Baileylo\BlogApp\ServiceProviders;
 
+use Baileylo\BlogApp\Routing\CategoryResolver;
 use Baileylo\BlogApp\Routing\PostResolver;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,5 +17,6 @@ class RouteServiceProvider extends ServiceProvider
         $router = $this->app['router'];
 
         $router->bind('postSlug', PostResolver::class . '@postSlug');
+        $router->bind('category', CategoryResolver::class . '@category');
     }
 }

@@ -28,7 +28,8 @@ Route::get('', ['uses' => Controllers\Home\View::class . '@view', 'as' => 'home'
 Route::get('page/{page}', ['uses' => Controllers\Home\View::class . '@view', 'as' => 'home.paginated']);
 
 // Paginated Filtered Category Page
-# --- needs implementation
+Route::get('category/{category}', ['uses' => Controllers\Post\ListingView::class . '@category', 'as' => 'category']);
+Route::get('category/{category}/{page}', ['uses' => Controllers\Post\ListingView::class . '@category', 'as' => 'category.paginated']);
 
 // Login Page
 Route::get('login', ['uses' => Controllers\Auth\LoginView::class . '@view']);

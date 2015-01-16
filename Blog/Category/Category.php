@@ -27,4 +27,16 @@ class Category
     {
         return $this->name;
     }
+
+    /**
+     * Compare if two categories are identical.
+     *
+     * @param Category $category
+     *
+     * @return bool
+     */
+    public function matches(Category $category)
+    {
+        return $category->getSlug() === $this->getSlug();
+    }
 }

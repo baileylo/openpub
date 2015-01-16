@@ -1,6 +1,13 @@
 @extends('layouts.full')
 
+@section('title') @if(isset($category)) {{{ $category->getName() }}} &mdash; @endif {{{ $site->getTitle() }}} @stop
+
 @section('content')
+
+    @if(isset($category))
+        <h2>Posts Tagged With {{{ $category->getName() }}}</h2>
+    @endif
+
     @foreach($posts as $post)
         <article class="list-article">
             <h3 class="article-header"><a href="{{ route('post.permalink', ['date' => $post->getPublishDate()->format('Y/m/d'), 'postSlug' => $post->getSlug()]) }}">{{{ $post->getTitle() }}}</a></h3>
