@@ -4,6 +4,7 @@ namespace Baileylo\BlogApp\Routing;
 
 use Baileylo\Blog\Post\PostRepository;
 use Illuminate\Routing\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostResolver
 {
@@ -17,14 +18,12 @@ class PostResolver
 
     public function postSlug($slug, Route $route)
     {
-        return $this->postRepository->findBySlug($slug);
-        $date = $route->getParameter('date', false);
-        if (!$date) {
-            return $this->postRepository->findUnpublishedArticle($slug);
+        $post = $this->postRepository->findBySlug($slug);
+
+        if (!$post) {
+            throw new NotFoundHttpException;
         }
 
-        $date = date_create_from_format('Y/m/d', $date);
-
-        return $this->postRepository->findPublishedArticle($slug, $date);
+        return $post;
     }
 }
