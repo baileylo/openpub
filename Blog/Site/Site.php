@@ -30,31 +30,6 @@ class Site
         $this->subHead = $subHead;
     }
 
-
-    /**
-     * @param \DateTime $lastModified
-     */
-    public function setLastModified($lastModified)
-    {
-        $this->lastModified = $lastModified;
-    }
-
-    /**
-     * @param String $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @param String $subHead
-     */
-    public function setSubHead($subHead)
-    {
-        $this->subHead = $subHead;
-    }
-
     /**
      * @return \DateTime
      */

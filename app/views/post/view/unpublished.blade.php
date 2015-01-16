@@ -1,5 +1,7 @@
 @extends('layouts.full')
 
+@section('title')Preview &mdash; {{ $post->getTitle() }} &mdash; {{ $site->getTitle() }} @stop
+
 @section('content')
     <article class="view-article">
         <h1 class="article-header">{{{ $post->getTitle() }}}</h1>

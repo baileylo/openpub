@@ -1,5 +1,7 @@
 @extends('layouts.full')
 
+@section('title')Settings &mdash; {{ $site->getTitle() }} @stop
+
 @section('footer')@stop
 
 @section('content')
