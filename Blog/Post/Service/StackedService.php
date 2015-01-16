@@ -15,7 +15,6 @@ class StackedService implements PostService
 
     public function handle(Post $post, array $data = [])
     {
-        echo __CLASS__ . '::' . __FUNCTION__ . "<br >";
         return $this->innerService->handle($post, $data);
     }
 }
