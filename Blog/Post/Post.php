@@ -142,6 +142,16 @@ class Post
     }
 
     /**
+     * Determine if a post is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return !is_null($this->publishDate) || $this->publishDate <= new \DateTime();
+    }
+
+    /**
      * @return \DateTime
      */
     public function getUpdatedAt()

@@ -4,6 +4,15 @@
 
 @section('content')
     {{ Form::open(['method' => 'put']) }}
+
+    @if ($postUpdated)
+        <div class="row">
+            <div class="large-12 columns">
+                    <div class="alert-box success text-center">Post Updated!</div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
         <div class="large-12 columns @if($errors->has('title')) error @endif">
             {{ Form::text('title', $post->getTitle(), ['placeholder' => 'Title: Name of the post', 'required' => true]) }}

@@ -31,9 +31,15 @@ class EditUnpublishedPostHandler extends Controller
         $response = $this->updateService->handle($post, $this->request->all());
 
         if ($response->hasErrors()) {
-            $this->redirector->back()->withInput()->withErrors($response->getErrors());
+            return $this->redirector->back()->withInput()->withErrors($response->getErrors());
         }
 
-        return $this->redirector->back();
+        if ($post->isPublished()) {
+            return $this->redirector
+                ->route('admin.post.edit', [$post->getPublishDate()->format('Y/m/d'), $post->getSlug()])
+                ->with('postPublished', true);
+        }
+
+        return $this->redirector->back()->with('postUpdated', true);
     }
 }
