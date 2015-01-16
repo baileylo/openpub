@@ -31,9 +31,9 @@ class EditPublishedPostHandler extends Controller
         $response = $this->updateService->handle($post, $this->request->all());
 
         if ($response->hasErrors()) {
-            $this->redirector->back()->withInput()->withErrors($response->getErrors());
+            return $this->redirector->back()->withInput()->withErrors($response->getErrors());
         }
 
-        return $this->redirector->back();
+        return $this->redirector->back()->with('postUpdated', true);
     }
 }
