@@ -19,7 +19,8 @@
         "league/commonmark": "~0.6@dev",
         "phpunit/phpunit": "~4.",
         "laracasts/commander": "dev-commander-events",
-        "league/tactician": "dev-master"
+        "league/tactician": "dev-master",
+        "nickcernis/html-to-markdown": "dev-master"
     },
     "autoload": {
         "classmap": [
