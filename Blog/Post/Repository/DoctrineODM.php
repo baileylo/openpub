@@ -168,6 +168,11 @@ class DoctrineODM implements PostRepository
             $query->field('publishDate')->lte(new \DateTime('now'));
         }
 
-        return $query->getQuery()->getSingleResult()->getUpdatedAt();
+        $post = $query->getQuery()->getSingleResult();
+        if (!$post) {
+            return null;
+        }
+
+        return $post->getUpdatedAt();
     }
 }
