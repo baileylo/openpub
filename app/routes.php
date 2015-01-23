@@ -13,7 +13,6 @@ Route::filter('afterAtomCache', After\AtomCacheFilter::class);
 Route::filter('afterPostCache', After\PostCacheFilter::class);
 
 
-// Features that we want:
 
 // Post Permalink
 Route::get('{date}/{postSlug}', [
@@ -46,6 +45,10 @@ Route::get('feed', [
 ]);
 
 Route::group(['before' => 'auth'], function () {
+
+    Route::get('/import', ['uses' => Controllers\Admin\ImportView::class . '@view', 'as' => 'import']);
+    Route::post('/import', ['uses' => Controllers\Admin\ImportHandler::class . '@import']);
+
     // Settings Routes
     Route::get('/settings', ['uses' => Controllers\User\Settings\SettingsView::class . '@view', 'as' => 'settings']);
 
