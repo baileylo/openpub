@@ -38,10 +38,16 @@
             @endif
         </div>
     </div>
-    <div class="row">
-        <div class="large-12 columns text-right">
+    <div class="row hidden-for-small-down">
+        <div class="columns large-12 medium-12 text-right">
             {{ Form::button('Publish', ['type' => 'submit', 'class' => 'success', 'name' => 'isPublished', 'value' => 'yes']) }}
             {{ Form::button('Save', ['type' => 'submit', 'name' => 'isPublished', 'value' => 'no']) }}
+        </div>
+    </div>
+    <div class="row visible-for-small-down">
+        <div class="columns small-12">
+            {{ Form::button('Publish', ['type' => 'submit', 'class' => 'success expand', 'name' => 'isPublished', 'value' => 'yes']) }}
+            {{ Form::button('Save', ['type' => 'submit', 'name' => 'isPublished', 'class' => 'expand', 'value' => 'no']) }}
         </div>
     </div>
 {{ Form::close() }}

@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Publish Date</th>
+                <th class="hidden-for-small-down">Publish Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
         @foreach($unpublishedPosts as $post)
             <tr>
                 <td>{{ $post->getTitle() }}</td>
-                <td>{{ $post->getPublishDate() ? $post->getPublishDate()->format('F jS, Y') : 'Unknown' }}</td>
+                <td class="hidden-for-small-down">{{ $post->getPublishDate() ? $post->getPublishDate()->format('F jS, Y') : 'Unknown' }}</td>
                 <td>
                     <a href="{{ route('admin.unpublished.preview', [$post->getSlug()]) }}" title="Preview"><i class="fa fa-eye"></i></a>
                     <a href="{{ route('admin.unpublished.edit', [$post->getSlug()]) }}" title="Edit"><i class="fa fa-pencil"></i></a>
@@ -40,15 +40,23 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Publish Date</th>
-                <th>Actions</th>
+                <th class="hidden-for-small-down">Publish Date</th>
+                <th class="hidden-for-small-down">Actions</th>
             </tr>
         </thead>
         @foreach($publishedPosts as $post)
             <tr>
-                <td>{{ $post->getTitle() }}</td>
-                <td>{{ $post->getPublishDate()->format('F jS, Y')}}</td>
                 <td>
+                    {{ $post->getTitle() }}
+                    <div class="visible-for-small-down">
+                        <a href="{{ route('post.permalink', [$post->getPublishDate()->format('Y/m/d'), $post->getSlug()]) }}" title="View"><i class="fa fa-eye"></i></a>
+                        <a href="{{ route('admin.post.edit', [$post->getPublishDate()->format('Y/m/d'), $post->getSlug()]) }}" title="Edit"><i class="fa fa-pencil"></i></a>
+                        {{ Form::csrfLink('<i class="fa fa-remove"></i>', ['route' => ['admin.post.unpublish', $post->getSlug()], 'method' => 'patch', 'title' => 'Un Publish']) }}
+                        {{ Form::csrfLink('<i class="fa fa-trash"></i>', ['route' => ['admin.post.delete', $post->getSlug()], 'method' => 'delete', 'title' => 'Delete']) }}
+                    </div>
+                </td>
+                <td class="hidden-for-small-down">{{ $post->getPublishDate()->format('F jS, Y')}}</td>
+                <td class="hidden-for-small-down">
 
                     <a href="{{ route('post.permalink', [$post->getPublishDate()->format('Y/m/d'), $post->getSlug()]) }}" title="View"><i class="fa fa-eye"></i></a>
                     <a href="{{ route('admin.post.edit', [$post->getPublishDate()->format('Y/m/d'), $post->getSlug()]) }}" title="Edit"><i class="fa fa-pencil"></i></a>
@@ -59,11 +67,12 @@
         @endforeach
         <tfoot>
             <tr>
-                <td colspan="4">{{ $pagination->links('pagination::slider-3') }}</td>
+                <td colspan="4" class="hidden-for-small-down">{{ $pagination->links('pagination.zurb-full') }}</td>
             </tr>
         </tfoot>
     </table>
 
-
-
+    <div class="visible-for-small-down">
+        {{ $pagination->links('pagination.zurb-simple') }}
+    </div>
 @stop
