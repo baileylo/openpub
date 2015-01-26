@@ -14,7 +14,7 @@ class Paginate
         $this->factory = app('paginator');
     }
 
-    public function paginate(Cursor $cursor, $pageSize, $route, $currentPage = 1, $urlParam = 'page')
+    public function paginate(Cursor $cursor, $pageSize, $route, $currentPage = 1, array $parameters = [], $urlParam = 'page')
     {
         $factory = clone $this->factory;
         $factory->setCurrentPage($currentPage);
@@ -22,6 +22,7 @@ class Paginate
         $paginator = new Paginator($factory, $cursor->toArray(), $cursor->count(), $pageSize);
         $paginator->setupPaginationContext();
         $paginator->setUrlParam($urlParam);
+        $paginator->setRouteParameters($parameters);
         $paginator->setRouteName($route);
 
 

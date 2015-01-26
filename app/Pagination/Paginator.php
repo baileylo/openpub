@@ -10,9 +10,20 @@ class Paginator extends \Illuminate\Pagination\Paginator
     /** @var String */
     protected $urlParam;
 
+    /** @var [] */
+    protected $routeParameters = [];
+
     public function __construct(Factory $factory, array $items, $total, $perPage = null)
     {
         parent::__construct($factory, $items, $total, $perPage);
+    }
+
+    /**
+     * @return array
+     */
+    public function setRouteParameters(array $parameters)
+    {
+        return $this->routeParameters = $parameters;
     }
 
     protected function getRouteName($page)
@@ -32,8 +43,6 @@ class Paginator extends \Illuminate\Pagination\Paginator
         $this->routeName = $routeName;
     }
 
-
-
     /**
      * @param String $urlParam
      */
@@ -50,7 +59,7 @@ class Paginator extends \Illuminate\Pagination\Paginator
      */
     public function getUrl($page)
     {
-        $routeParameters = array();
+        $routeParameters = $this->routeParameters;
 
         if ($page > 1) { // if $page == 1 don't add it to url
             $routeParameters[$this->urlParam] = $page;
