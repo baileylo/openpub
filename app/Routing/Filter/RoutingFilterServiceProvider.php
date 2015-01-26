@@ -19,5 +19,6 @@ class RoutingFilterServiceProvider extends ServiceProvider
         $router->filter('afterAtomCache', After\AtomCacheFilter::class);
         $router->filter('afterPostCache', After\PostCacheFilter::class);
 
+        $router->before(Before\LowerCaseUrlsFilter::class);
     }
 }

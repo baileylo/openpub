@@ -12,18 +12,6 @@
 */
 
 App::before(function (\Illuminate\Http\Request $request) {
-    $path = $request->getPathInfo();
-    if (!preg_match('/[A-Z]/', $path)) {
-        // No Upper case letters, so do nothing.
-        return;
-    }
-
-    if ($request->method() === 'GET') {
-        $path = strtolower($path);
-        return app()['redirect']->to($path, 301);
-    }
-
-    throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 });
 
 
