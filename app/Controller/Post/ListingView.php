@@ -37,7 +37,6 @@ class ListingView extends Controller
 
     public function category(Category $category, $page = 1)
     {
-        $pagination = $this->paginate->paginate($posts, self::PAGE_SIZE, 'category', $page);
         $posts = $this->postRepository->findRecentPostsByCategory(
             $category->getSlug(),
             self::PAGE_SIZE,
@@ -47,6 +46,13 @@ class ListingView extends Controller
         $category = $this->resolveCategory($category, $posts->getNext());
         $posts->reset();
 
+        $pagination = $this->paginate->paginate(
+            $posts,
+            self::PAGE_SIZE,
+            'category',
+            $page,
+            ['category' => $category->getSlug()]
+        );
 
         return $this->viewFactory()->make('home.list', compact('posts', 'pagination', 'category'));
     }
