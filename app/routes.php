@@ -1,16 +1,10 @@
 <?php
 
 use Baileylo\BlogApp\Controller as Controllers;
-use Baileylo\BlogApp\Routing\Filter\Before;
-use Baileylo\BlogApp\Routing\Filter\After;
 
 Route::pattern('date', '\d{4}\/\d{2}\/\d{2}');
 Route::pattern('page', '[1-9]+[0-9]*');
 
-Route::filter('beforeAtomCache', Before\AtomCacheFilter::class);
-Route::filter('beforePostCache', Before\PostCacheFilter::class);
-Route::filter('afterAtomCache', After\AtomCacheFilter::class);
-Route::filter('afterPostCache', After\PostCacheFilter::class);
 
 
 
