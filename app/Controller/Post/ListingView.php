@@ -39,8 +39,9 @@ class ListingView extends Controller
     {
         $posts = $this->postRepository->findRecentPostsByCategory($category->getSlug(), self::PAGE_SIZE, 0);
         $pagination = $this->paginate->paginate($posts, self::PAGE_SIZE, 'category', $page);
+        $category = $this->resolveCategory($category, $posts->getNext());
+        $posts->reset();
 
-        $category = $this->resolveCategory($category, $posts->getSingleResult());
 
         return $this->viewFactory()->make('home.list', compact('posts', 'pagination', 'category'));
     }
