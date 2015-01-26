@@ -19,7 +19,7 @@ class ViewPublishedPost extends Controller
         $this->session = $session;
     }
 
-    public function view($date, Post $post)
+    public function view(Post $post)
     {
         $postUpdated = $this->session->has('postUpdated');
         $postPublished = $this->session->has('postPublished');

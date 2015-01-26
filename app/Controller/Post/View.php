@@ -11,7 +11,7 @@ class View extends Controller
 {
     use Renderable;
 
-    public function view($date, Post $post)
+    public function view(Post $post)
     {
         return $this->viewFactory()->make('post.permalink', compact('post'));
     }
