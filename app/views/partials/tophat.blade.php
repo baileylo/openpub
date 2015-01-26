@@ -1,4 +1,4 @@
-<nav class="top-bar" data-topbar role="navigation">
+<nav class="top-bar hidden-for-small" data-topbar role="navigation">
     <ul class="title-area">
         <li class="name"><h1><a href="{{ route('home') }}">My Blog</a></h1></li>
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
