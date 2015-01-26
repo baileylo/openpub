@@ -29,7 +29,7 @@ class ListingView extends Controller
     public function view($page = 1)
     {
         /** @var \Doctrine\ODM\MongoDB\Cursor $posts */
-        $posts = $this->postRepository->findRecentPosts(self::PAGE_SIZE, ($page - 1) * self::PAGE_SIZE);
+        $posts = $this->postRepository->findRecentPosts(self::PAGE_SIZE, $this->getSkippedPosts($page));
         $pagination = $this->paginate->paginate($posts, self::PAGE_SIZE, 'home', $page);
 
         return $this->viewFactory()->make('home.list', compact('posts', 'pagination'));
@@ -37,8 +37,13 @@ class ListingView extends Controller
 
     public function category(Category $category, $page = 1)
     {
-        $posts = $this->postRepository->findRecentPostsByCategory($category->getSlug(), self::PAGE_SIZE, 0);
         $pagination = $this->paginate->paginate($posts, self::PAGE_SIZE, 'category', $page);
+        $posts = $this->postRepository->findRecentPostsByCategory(
+            $category->getSlug(),
+            self::PAGE_SIZE,
+            $this->getSkippedPosts($page)
+        );
+
         $category = $this->resolveCategory($category, $posts->getNext());
         $posts->reset();
 
@@ -69,5 +74,17 @@ class ListingView extends Controller
         }
 
         return $category;
+    }
+
+    /**
+     * Given a page determines the number of items to skip.
+     *
+     * @param int $page
+     *
+     * @return int
+     */
+    private function getSkippedPosts($page)
+    {
+        return ($page - 1) * self::PAGE_SIZE;
     }
 }
