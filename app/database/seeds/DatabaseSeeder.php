@@ -1,5 +1,7 @@
 <?php
 
+use Baileylo\BlogApp\Seeds\PostSeeder;
+
 class DatabaseSeeder extends Seeder {
 
 	/**
@@ -9,9 +11,9 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Eloquent::unguard();
+//		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		 $this->call(PostSeeder::class);
 	}
 
 }
