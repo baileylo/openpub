@@ -9,7 +9,7 @@
 @section('header')
 <nav class="columns large-7 medium-11 medium-centered large-centered show-for-medium-up" style="margin-top:75px;">
     <div class="button-bar">
-        <ul class="button-group">
+        <ul class="header-button-group button-group">
             <li><a class="small button" href="{{ route('home') }}" title="Home">Home</a></li>
             <li><a class="small button" href="#" title="About Me">About Me</a></li>
             <li class="nav-bar-item-logo">

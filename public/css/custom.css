@@ -88,3 +88,8 @@ tfoot ul.pagination {
     margin-bottom: 0;
 }
 
+.button-bar .button-group.header-button-group {
+    text-align: center;
+    float: none;
+}
+
