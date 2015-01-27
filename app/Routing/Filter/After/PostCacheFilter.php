@@ -2,7 +2,6 @@
 
 namespace Baileylo\BlogApp\Routing\Filter\After;
 
-use Baileylo\Blog\Site\Site;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

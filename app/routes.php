@@ -1,26 +1,9 @@
 <?php
 
 use Baileylo\BlogApp\Controller as Controllers;
-use Baileylo\BlogApp\Routing\Filter\Before;
-use Baileylo\BlogApp\Routing\Filter\After;
 
 Route::pattern('date', '\d{4}\/\d{2}\/\d{2}');
 Route::pattern('page', '[1-9]+[0-9]*');
-
-Route::filter('beforeAtomCache', Before\AtomCacheFilter::class);
-Route::filter('beforePostCache', Before\PostCacheFilter::class);
-Route::filter('afterAtomCache', After\AtomCacheFilter::class);
-Route::filter('afterPostCache', After\PostCacheFilter::class);
-
-
-
-// Post Permalink
-Route::get('{date}/{postSlug}', [
-    'uses' => Controllers\Post\View::class . '@view',
-    'before' => 'beforePostCache',
-    'after' => 'afterPostCache',
-    'as' => 'post.permalink'
-]);
 
 // Paginated Homepage
 Route::get('', ['uses' => Controllers\Home\View::class . '@view', 'as' => 'home']);
@@ -60,14 +43,14 @@ Route::group(['before' => 'auth'], function () {
     Route::get('/admin/unpublished/{page}', ['uses' => Controllers\Admin\ListUnpublishedPosts::class . '@view', 'as' => 'admin.unpublished.paginated']);
 
     Route::get('/write', ['uses' => Controllers\Post\Create\View::class . '@view', 'as' => 'admin.post.create']);
-    Route::get('{date}/{postSlug}/edit', ['uses' => Controllers\Post\Edit\ViewPublishedPost::class . '@view', 'as' => 'admin.post.edit']);
+    Route::get('{postSlug}/edit', ['uses' => Controllers\Post\Edit\ViewPublishedPost::class . '@view', 'as' => 'admin.post.edit']);
     Route::get('unpublished/{postSlug}', ['uses' => Controllers\Post\View\ViewUnpublishedPost::class . '@view', 'as' => 'admin.unpublished.preview']);
     Route::get('unpublished/{postSlug}/edit', ['uses' => Controllers\Post\Edit\ViewUnpublishedPost::class . '@view', 'as' => 'admin.unpublished.edit']);
 
 
     Route::group(['before' => 'csrf'], function () {
         Route::post('/write', ['uses' => Controllers\Post\Create\CreatePostHandler::class . '@handle']);
-        Route::put('{date}/{postSlug}/edit', ['uses' => Controllers\Post\Edit\EditPublishedPostHandler::class . '@handle']);
+        Route::put('{postSlug}/edit', ['uses' => Controllers\Post\Edit\EditPublishedPostHandler::class . '@handle']);
         Route::put('unpublished/{postSlug}/edit', ['uses' => Controllers\Post\Edit\EditUnpublishedPostHandler::class . '@handle']);
 
         Route::delete('/admin/{postSlug}', ['uses' => Controllers\Post\Delete\Delete::class . '@delete', 'as' => 'admin.post.delete']);
@@ -78,3 +61,13 @@ Route::group(['before' => 'auth'], function () {
         Route::put('/update-password', ['uses' => Controllers\User\Settings\PasswordHandler::class . '@handleForm', 'as' => 'passwordHandler']);
     });
 });
+
+Route::get('{date}/{postSlug}', ['before' => 'postUrlRedirect']);
+
+// Post Permalink
+Route::get('{postSlug}', [
+    'uses' => Controllers\Post\View::class . '@view',
+    'before' => 'beforePostCache',
+    'after' => 'afterPostCache',
+    'as' => 'post.permalink'
+]);

@@ -4,6 +4,7 @@ use Baileylo\Blog\ServiceProvider\MarkdownServiceProvider;
 use Baileylo\Blog\ServiceProvider\RepositoryServiceProvider;
 use Baileylo\Blog\ServiceProvider\UserProviderServiceProvider;
 use Baileylo\BlogApp\Pagination\PaginationServiceProvider;
+use Baileylo\BlogApp\Routing\Filter\RoutingFilterServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\PostServicesServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\RouteServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\SiteServiceProvider;
@@ -133,6 +134,7 @@ return array(
 
         ViewServiceProvider::class,
 
+        RoutingFilterServiceProvider::class,
         PostServicesServiceProvider::class,
         MongoODMServiceProvider::class,
         MarkdownServiceProvider::class,
