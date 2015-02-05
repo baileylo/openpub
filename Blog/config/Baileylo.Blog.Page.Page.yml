@@ -23,6 +23,8 @@ Baileylo\Blog\Page\Page:
       type: date
     updatedAt:
       type: date
+    title:
+      type: string
     slug:
       type: string
       index: true

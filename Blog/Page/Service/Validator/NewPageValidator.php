@@ -1,6 +1,6 @@
 <?php
 
-namespace Baileylo\Blog\Page\Validator;
+namespace Baileylo\Blog\Page\Service\Validator;
 
 use Baileylo\Blog\Validation\ValidationException;
 use Baileylo\Core\Laravel\Validation\ValidationResponse;
@@ -23,15 +23,17 @@ class NewPageValidator
      * Validates the data for a new page
      *
      * @param string $slug
+     * @param        $title
      * @param string $html HTML of the page
      *
      * @return bool True if data passed validation
-     * @throws ValidationException If there is an error validating the data
+     * @throws ValidationException
      */
-    public function validate($slug, $html)
+    public function validate($slug, $title, $html)
     {
-        $validation = $this->factory->make(compact('slug', 'html'), [
-            'slug' => 'required|unique:Pages,slug',
+        $validation = $this->factory->make(compact('slug', 'title', 'html'), [
+            'title' => 'required',
+            'slug' => 'required|unique:Page,slug',
             'html' => 'required'
         ]);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Baileylo\Blog\Page\Validator;
+namespace Baileylo\Blog\Page\Service\Validator;
 
 use Baileylo\Blog\Page\Page;
 use Baileylo\Blog\Validation\ValidationException;
@@ -24,14 +24,16 @@ class UpdatePageValidator
      *
      * @param Page   $page
      * @param string $slug
+     * @param        $title
      * @param string $html HTML of the page
      *
      * @return bool True if data passed validation
      * @throws ValidationException
      */
-    public function validate(Page $page, $slug, $html)
+    public function validate(Page $page, $slug, $title, $html)
     {
-        $validation = $this->factory->make(compact('slug', 'html'), [
+        $validation = $this->factory->make(compact('slug', 'html', 'title'), [
+            'title' => 'required',
             'slug' => "required|unique:Pages,slug,{$page->getId()}",
             'html' => 'required'
         ]);
