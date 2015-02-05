@@ -1,5 +1,5 @@
 @extends('layouts.full')
-
+@section('footer') @stop
 @section('content')
     <table class="columns large-12">
         <thead>

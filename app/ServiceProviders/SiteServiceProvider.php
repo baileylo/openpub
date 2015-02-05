@@ -23,7 +23,8 @@ class SiteServiceProvider extends ServiceProvider
                 $app['config']['site.lastModified'],
                 is_null($updatedDate) ? $app['config']['site.lastModified'] : $updatedDate,
                 $app['config']['site.title'],
-                $app['config']['site.subHead']
+                $app['config']['site.subHead'],
+                $app['config']['services.google-analytics.id']
             );
         });
     }
