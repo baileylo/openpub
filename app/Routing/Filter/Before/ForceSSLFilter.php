@@ -3,6 +3,7 @@
 namespace Baileylo\BlogApp\Routing\Filter\Before;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 
 /**
@@ -10,10 +11,18 @@ use Illuminate\Routing\Route;
  */
 class ForceSSLFilter
 {
+    /** @var Redirector */
+    private $redirector;
+
+    public function __construct(Redirector $redirector)
+    {
+        $this->redirector = $redirector;
+    }
+
     public function filter(Route $route, Request $request)
     {
         if (!$request->isSecure()) {
-            return $request->secure($request->path());
+            return $this->redirector->secure($request->path());
         }
     }
 }
