@@ -2,10 +2,9 @@
 
 namespace Baileylo\Blog\Post\Repository;
 
-use Baileylo\Blog\Post\Cursor;
+use Doctrine\ODM\MongoDB\Cursor;
 use Baileylo\Blog\Post\Post;
 use Baileylo\Blog\Post\PostRepository;
-use Carbon\Carbon;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
 class DoctrineODM implements PostRepository
