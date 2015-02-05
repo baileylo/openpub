@@ -37,6 +37,6 @@ class Handler extends Controller
             return $this->redirector->back()->withInput()->withErrors($e->getErrors());
         }
 
-        return $this->redirector->route('page', [$page->getSlug()]);
+        return $this->redirector->route('resource.permalink', [$page->getSlug()]);
     }
 }
