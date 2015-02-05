@@ -36,38 +36,48 @@ Route::group(['before' => 'auth'], function () {
     Route::get('/settings', ['uses' => Controllers\User\Settings\SettingsView::class . '@view', 'as' => 'settings']);
 
     // Generic Admin Page
-    Route::get('/admin', ['uses' => Controllers\Admin\ListView::class . '@view', 'as' => 'admin']);
+    Route::get('/admin/', ['uses' => Controllers\Admin\ListView::class . '@view', 'as' => 'admin']);
     Route::get('/admin/{page}', ['uses' => Controllers\Admin\ListView::class . '@view', 'as' => 'admin.paginated']);
 
-    Route::get('/admin/unpublished', ['uses' => Controllers\Admin\ListUnpublishedPosts::class . '@view', 'as' => 'admin.unpublished']);
-    Route::get('/admin/unpublished/{page}', ['uses' => Controllers\Admin\ListUnpublishedPosts::class . '@view', 'as' => 'admin.unpublished.paginated']);
+    Route::get('/admin/pages/', ['uses' => Controllers\Page\View\ListView::class . '@view', 'as' => 'admin.pages']);
+    Route::get('/admin/pages/{page}', ['uses' => Controllers\Page\View\ListView::class . '@view', 'as' => 'admin.pages.paginated']);
+
+    Route::get('/admin/posts/unpublished', ['uses' => Controllers\Admin\ListUnpublishedPosts::class . '@view', 'as' => 'admin.unpublished']);
+    Route::get('/admin/posts/unpublished/{page}', ['uses' => Controllers\Admin\ListUnpublishedPosts::class . '@view', 'as' => 'admin.unpublished.paginated']);
 
     Route::get('/write', ['uses' => Controllers\Post\Create\View::class . '@view', 'as' => 'admin.post.create']);
-    Route::get('{postSlug}/edit', ['uses' => Controllers\Post\Edit\ViewPublishedPost::class . '@view', 'as' => 'admin.post.edit']);
-    Route::get('unpublished/{postSlug}', ['uses' => Controllers\Post\View\ViewUnpublishedPost::class . '@view', 'as' => 'admin.unpublished.preview']);
-    Route::get('unpublished/{postSlug}/edit', ['uses' => Controllers\Post\Edit\ViewUnpublishedPost::class . '@view', 'as' => 'admin.unpublished.edit']);
-
+    Route::get('/write/page', ['uses' => Controllers\Page\Create\View::class . '@view', 'as' => 'admin.page.create']);
 
     Route::group(['before' => 'csrf'], function () {
-        Route::post('/write', ['uses' => Controllers\Post\Create\CreatePostHandler::class . '@handle']);
-        Route::put('{postSlug}/edit', ['uses' => Controllers\Post\Edit\EditPublishedPostHandler::class . '@handle']);
-        Route::put('unpublished/{postSlug}/edit', ['uses' => Controllers\Post\Edit\EditUnpublishedPostHandler::class . '@handle']);
+        // Delete Page Or Post
+        Route::delete('{slug}', ['uses' => Controllers\Resource\Delete::class . '@delete', 'as' => 'page.delete']);
+        Route::delete('{slug}', ['uses' => Controllers\Resource\Delete::class . '@delete', 'as' => 'post.delete']);
 
-        Route::delete('/admin/{postSlug}', ['uses' => Controllers\Post\Delete\Delete::class . '@delete', 'as' => 'admin.post.delete']);
-        Route::patch('/admin/{postSlug}/publish', ['uses' => Controllers\Post\Publish\Publish::class . '@publish', 'as' => 'admin.post.publish']);
-        Route::patch('/admin/{postSlug}/unpublish', ['uses' => Controllers\Post\Publish\Unpublish::class . '@unpublish', 'as' => 'admin.post.unpublish']);
+        // Handle Edits to Page
+        Route::put('{slug}/edit', ['uses' => Controllers\Resource\EditHandler::class . '@handle']);
+        Route::post('{slug}/edit', ['uses' => Controllers\Resource\EditHandler::class . '@handle']);
+
+        // Create Page/Slug
+        Route::post('/write', ['uses' => Controllers\Post\Create\CreatePostHandler::class . '@handle']);
+        Route::post('/write/page', ['uses' => Controllers\Page\Create\Handler::class . '@handleForm', 'as' => 'admin.page.create']);
+
+        // Publish / Unpublish Page
+        Route::patch('{slug}/publish', ['uses' => Controllers\Post\Publish\Publish::class . '@publish', 'as' => 'admin.post.publish']);
+        Route::patch('{slug}/unpublish', ['uses' => Controllers\Post\Publish\Unpublish::class . '@unpublish', 'as' => 'admin.post.unpublish']);
 
         Route::put('/settings', ['uses' => Controllers\User\Settings\SettingsHandler::class . '@handleForm']);
         Route::put('/update-password', ['uses' => Controllers\User\Settings\PasswordHandler::class . '@handleForm', 'as' => 'passwordHandler']);
     });
 });
 
-Route::get('{date}/{postSlug}', ['before' => 'postUrlRedirect']);
+Route::get('{date}/{slug}', ['before' => 'postUrlRedirect']);
 
-// Post Permalink
-Route::get('{postSlug}', [
-    'uses' => Controllers\Post\View::class . '@view',
-    'before' => 'beforePostCache',
-    'after' => 'afterPostCache',
-    'as' => 'post.permalink'
-]);
+// View
+Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'page.permalink']);
+Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'post.permalink']);
+
+// Edit
+Route::get('{slug}/edit', ['uses' => Controllers\Resource\Edit::class . '@view', 'as' => 'page.edit']);
+Route::get('{slug}/edit', ['uses' => Controllers\Resource\Edit::class . '@view', 'as' => 'post.edit']);
+
+

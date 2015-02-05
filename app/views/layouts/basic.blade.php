@@ -41,6 +41,8 @@
     <script>
         $(document).foundation();
     </script>
+
+    @yield('js')
 </body>
 
 </html>

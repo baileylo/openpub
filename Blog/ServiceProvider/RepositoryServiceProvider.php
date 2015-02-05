@@ -2,6 +2,8 @@
 
 namespace Baileylo\Blog\ServiceProvider;
 
+use Baileylo\Blog\Page\Page;
+use Baileylo\Blog\Page\PageRepository;
 use Baileylo\Blog\Post\Post;
 use Baileylo\Blog\Post\PostRepository;
 use Baileylo\Blog\Post\Repository\DoctrineODM;
@@ -25,6 +27,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->singleton(PostRepository::class, function ($app) {
             return new DoctrineODM($app[DocumentManager::class]->getRepository(Post::class));
+        });
+
+        $this->app->singleton(PageRepository::class, function ($app) {
+            return new PageRepository($app[DocumentManager::class]->getRepository(Page::class));
         });
     }
 }

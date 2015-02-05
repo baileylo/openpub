@@ -23,7 +23,7 @@ class Publish extends Controller
 
     public function publish(Post $post)
     {
-        $this->postService->publish($post, new \DateTime('now'));
+        $this->postService->publish($post, new \DateTime('-5 seconds'));
         return $this->redirector->route('admin');
     }
 }

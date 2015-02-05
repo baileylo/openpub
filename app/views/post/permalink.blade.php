@@ -5,7 +5,11 @@
 @section('content')
 <article class="view-article">
     <h1 class="article-header">{{{ $post->getTitle() }}}</h1>
-    <h2 class="article-footer">Posted on {{{ $post->getPublishDate()->format('F jS, Y') }}}</h2>
+    @if ($post->getPublishDate())
+        <h2 class="article-footer">Posted on {{{ $post->getPublishDate()->format('F jS, Y') }}}</h2>
+    @else
+        <h2 class="article-footer">This post hasn't been published</h2>
+    @endif
 
     <div class="article-content">
         {{ $post->getHtml() }}

@@ -16,7 +16,9 @@
         <!-- Left Nav Section -->
         <ul class="left">
             <li><a href="{{ route('admin') }}">Admin</a></li>
-            <li><a href="{{ route('admin.post.create') }}">Write</a></li>
+            <li><a href="{{ route('admin.pages') }}">Pages</a></li>
+            <li><a href="{{ route('admin.post.create') }}">Write Post</a></li>
+            <li><a href="{{ route('admin.page.create') }}">Create Page</a></li>
         </ul>
     </section>
 </nav>

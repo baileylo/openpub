@@ -24,7 +24,7 @@ class PostCacheFilter
 
     public function filter(Route $route, Request $request)
     {
-        if (!$this->auth->check()) {
+        if ($this->auth->check()) {
             return;
         }
 
