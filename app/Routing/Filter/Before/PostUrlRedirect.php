@@ -26,7 +26,7 @@ class PostUrlRedirect
     {
         $url = $this->urlGenerator->route(
             'post.permalink',
-            [$route->getParameter('postSlug')->getSlug()]
+            [$route->getParameter('slug')->getSlug()]
         );
 
         return $this->redirector->to($url, 301);
