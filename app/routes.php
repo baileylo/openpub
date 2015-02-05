@@ -77,8 +77,7 @@ Route::group(['before' => 'auth'], function () {
 Route::get('{date}/{slug}', ['before' => 'postUrlRedirect']);
 
 // View
-Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'page.permalink']);
-Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'post.permalink']);
-
+Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'page.permalink', 'before' => 'unpublishedResource|beforeResourceCache', 'after' => 'afterResourceCache']);
+Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'post.permalink', 'before' => 'unpublishedResource|beforeResourceCache', 'after' => 'afterResourceCache']);
 
 

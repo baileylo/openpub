@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Route;
 
-class PostCacheFilter
+class ResourceHttpCacheFilter
 {
     const ONE_DAY = 86400;
 
