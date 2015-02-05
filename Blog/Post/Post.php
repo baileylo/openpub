@@ -148,7 +148,7 @@ class Post
      */
     public function isPublished()
     {
-        return !is_null($this->publishDate) || $this->publishDate <= new \DateTime();
+        return !is_null($this->publishDate) && $this->publishDate <= new \DateTime();
     }
 
     /**
