@@ -6,7 +6,7 @@ use Baileylo\Blog\ServiceProvider\UserProviderServiceProvider;
 use Baileylo\BlogApp\Pagination\PaginationServiceProvider;
 use Baileylo\BlogApp\Routing\Filter\RoutingFilterServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\PostServicesServiceProvider;
-use Baileylo\BlogApp\ServiceProviders\RouteServiceProvider;
+use Baileylo\BlogApp\Routing\RouteBindingServiceProvider;
 use Baileylo\BlogApp\ServiceProviders\SiteServiceProvider;
 use Baileylo\BlogApp\View\ViewServiceProvider;
 use Baileylo\Core\Laravel\Html\HtmlServiceProvider;
@@ -140,7 +140,7 @@ return array(
         MarkdownServiceProvider::class,
         UserProviderServiceProvider::class,
         RepositoryServiceProvider::class,
-        RouteServiceProvider::class,
+        RouteBindingServiceProvider::class,
     ),
     /*
     |--------------------------------------------------------------------------

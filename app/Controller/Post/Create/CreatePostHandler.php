@@ -40,22 +40,6 @@ class CreatePostHandler extends Controller
 
         $post = $response->getPost();
 
-        if ($post->getPublishDate()) {
-            return $this->redirectToPermalink($post);
-        }
-
-        return $this->redirectToPreview($post);
-    }
-
-    protected function redirectToPermalink(Post $post)
-    {
-        $date = $post->getPublishDate()->format('Y/m/d');
-
-        return $this->redirector->route('post.permalink', ['postDateSlug' => "{$date}/{$post->getSlug()}"]);
-    }
-
-    protected function redirectToPreview(Post $post)
-    {
-        return $this->redirector->route('post.preview', [$post->getSlug()]);
+        return $this->redirector->route('post.permalink', [$post->getSlug()]);
     }
 }

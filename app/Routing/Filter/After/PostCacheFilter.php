@@ -26,8 +26,8 @@ class PostCacheFilter
             return $response;
         }
 
-        /** @var \Baileylo\Blog\Post\Post $post */
-        $post = $route->getParameter('postSlug');
+        /** @var \Baileylo\Blog\Post\Post|\Baileylo\Blog\Page\Page $post */
+        $post = $route->getParameter('slug');
 
         $response->setLastModified($post->getUpdatedAt());
         $response->setVary('Accept-Encoding');

@@ -11,7 +11,7 @@
     <div class="button-bar">
         <ul class="header-button-group button-group">
             <li><a class="small button" href="{{ route('home') }}" title="Home">Home</a></li>
-            <li><a class="small button" href="#" title="About Me">About Me</a></li>
+            <li><a class="small button" href="{{ route('page.permalink', ['about-me']) }}" title="About Me">About Me</a></li>
             <li class="nav-bar-item-logo">
                 <div class="nav-bar-logo-container">
                     <img src="/img/profile.png" width="125px"/>
@@ -57,7 +57,9 @@
             <!-- Left Nav Section -->
             <ul class="left">
                 <li><a href="{{ route('admin') }}">Admin</a></li>
-                <li><a href="{{ route('admin.post.create') }}">Write</a></li>
+                <li><a href="{{ route('admin.pages') }}">Pages</a></li>
+                <li><a href="{{ route('admin.post.create') }}">Write Post</a></li>
+                <li><a href="{{ route('admin.page.create') }}">Create Page</a></li>
             </ul>
         @endif
     </section>
@@ -66,19 +68,5 @@
 @stop
 
 @section('footer')
-{{--<div class="columns small-4 large-4">--}}
-    {{--<h1>Recent Articles</h1>--}}
-    {{--<ol>--}}
-        {{--<li><a href="#">Object Composition</a></li>--}}
-        {{--<li><a href="#">Session User Injection</a></li>--}}
-        {{--<li><a href="#">Auto Dependency Resolution Explained</a></li>--}}
-        {{--<li><a href="#">Session User Injection</a></li>--}}
-    {{--</ol>--}}
-{{--</div>--}}
-{{--<div class="columns small-4 large-4">--}}
 
-{{--</div>--}}
-{{--<div class="columns small-4 large-4">--}}
-
-{{--</div>--}}
 @stop

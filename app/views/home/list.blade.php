@@ -10,7 +10,7 @@
 
     @foreach($posts as $post)
         <article class="list-article">
-            <h3 class="article-header"><a href="{{ route('post.permalink', ['date' => $post->getPublishDate()->format('Y/m/d'), 'postSlug' => $post->getSlug()]) }}">{{{ $post->getTitle() }}}</a></h3>
+            <h3 class="article-header"><a href="{{ route('post.permalink', [$post->getSlug()]) }}">{{{ $post->getTitle() }}}</a></h3>
 
             <div class="article-content">
                 {{ $post->getDescription() }}
