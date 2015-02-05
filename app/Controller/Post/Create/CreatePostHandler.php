@@ -35,11 +35,9 @@ class CreatePostHandler extends Controller
         $response = $this->creationService->handle($post, $data);
 
         if ($response->hasErrors()) {
-            $this->redirector->back()->withInput()->withErrors($response->getErrors());
+            return $this->redirector->back()->withInput()->withErrors($response->getErrors());
         }
 
-        $post = $response->getPost();
-
-        return $this->redirector->route('post.permalink', [$post->getSlug()]);
+        return $this->redirector->route('post.permalink', [$response->getPost()->getSlug()]);
     }
 }
