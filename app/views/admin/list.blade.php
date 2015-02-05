@@ -84,3 +84,5 @@
         {{ $pagination->links('pagination.zurb-simple') }}
     </div>
 @stop
+
+@section('footer') @stop

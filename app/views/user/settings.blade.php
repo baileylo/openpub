@@ -2,8 +2,6 @@
 
 @section('title')Settings &mdash; {{ $site->getTitle() }} @stop
 
-@section('footer')@stop
-
 @section('content')
     <h1>User Settings</h1>
 

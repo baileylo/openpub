@@ -14,3 +14,5 @@
         {{ Form::submit('Import', ['class' => 'button']) }}
     {{ Form::close() }}
 @stop
+
+@section('footer') @stop

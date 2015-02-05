@@ -27,11 +27,7 @@
         </div>
     </section>
 
-    <footer class="row">
-        <div class="columns large-9 large-centered">
-            @yield('footer')
-        </div>
-    </footer>
+    @yield('footer')
 
     <script src="/js/vendor/jquery.js"></script>
     <script src="/js/vendor/modernizr.js"></script>

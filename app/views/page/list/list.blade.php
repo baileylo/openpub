@@ -1,7 +1,7 @@
 @extends('layouts.full')
 
 @section('title') Pages &mdash; {{{ $site->getTitle() }}} @stop
-
+@section('footer') @stop
 @section('content')
 
     <table class="columns large-12">

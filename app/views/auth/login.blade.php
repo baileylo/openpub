@@ -1,4 +1,5 @@
 @extends('layouts.full')
+@section('footer') @stop
 
 @section('title')Login &mdash; {{ $site->getTitle() }} @stop
 

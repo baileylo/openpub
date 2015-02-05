@@ -1,7 +1,7 @@
 @extends('layouts.full')
 
 @section('title')Edit &mdash; {{ $post->getTitle() }} &mdash; {{ $site->getTitle() }} @stop
-
+@section('footer') @stop
 @section('content')
     {{ Form::open(['method' => 'put']) }}
 
