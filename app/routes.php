@@ -48,6 +48,10 @@ Route::group(['before' => 'auth'], function () {
     Route::get('/write', ['uses' => Controllers\Post\Create\View::class . '@view', 'as' => 'admin.post.create']);
     Route::get('/write/page', ['uses' => Controllers\Page\Create\View::class . '@view', 'as' => 'admin.page.create']);
 
+    // Edit
+    Route::get('{slug}/edit', ['uses' => Controllers\Resource\Edit::class . '@view', 'as' => 'page.edit']);
+    Route::get('{slug}/edit', ['uses' => Controllers\Resource\Edit::class . '@view', 'as' => 'post.edit']);
+
     Route::group(['before' => 'csrf'], function () {
         // Delete Page Or Post
         Route::delete('{slug}', ['uses' => Controllers\Resource\Delete::class . '@delete', 'as' => 'page.delete']);
@@ -76,8 +80,5 @@ Route::get('{date}/{slug}', ['before' => 'postUrlRedirect']);
 Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'page.permalink']);
 Route::get('{slug}', ['uses' => Controllers\Resource\View::class . '@view', 'as' => 'post.permalink']);
 
-// Edit
-Route::get('{slug}/edit', ['uses' => Controllers\Resource\Edit::class . '@view', 'as' => 'page.edit']);
-Route::get('{slug}/edit', ['uses' => Controllers\Resource\Edit::class . '@view', 'as' => 'post.edit']);
 
 
