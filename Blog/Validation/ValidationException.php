@@ -13,4 +13,13 @@ class ValidationException extends \Exception
     {
         $this->errors = $errors;
     }
+
+    /**
+     * @return MessageBag
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 }
+
