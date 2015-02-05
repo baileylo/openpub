@@ -54,9 +54,11 @@ App::error(function ($exception, $code) {
             return Response::view('errors.404', array(), 404);
 
         case 500:
+            Log::error($exception);
             return Response::view('errors.500', array(), 500);
 
         default:
+            Log::error($exception);
             return Response::view('errors.default', array(), $code);
     }
 });
