@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Route;
 
-class PostCacheFilter
+class ResourceHttpCacheFilter
 {
     /** @var Site */
     protected $site;
@@ -28,8 +28,8 @@ class PostCacheFilter
             return;
         }
 
-        /** @var \Baileylo\Blog\Post\Post $post */
-        $post = $route->getParameter('postSlug');
+        /** @var \Baileylo\Blog\Post\Post|\Baileylo\Blog\Page\Page $post */
+        $post = $route->getParameter('slug');
 
         $response = new Response();
         $response->setLastModified($post->getUpdatedAt());

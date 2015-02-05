@@ -3,16 +3,20 @@
 namespace Baileylo\BlogApp\Routing\Filter\Before;
 
 use Baileylo\Blog\Page\Page;
+use Baileylo\Blog\Post\Post;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PageFilter
+/**
+ * Prevents access to unpublished resources.
+ */
+class UnpublishedResourceAccessFilter
 {
     /** @var AuthManager */
     private $manager;
+
     /** @var Redirector */
     private $redirector;
 
@@ -22,20 +26,10 @@ class PageFilter
         $this->redirector = $redirector;
     }
 
-    public function unpublished(Route $route)
-    {
-        /** @var Page $page */
-        $page = $route->getParameter('pageSlug');
-        if ($page->isPublished()) {
-            return $this->redirector->route('page', [$page->getSlug()]);
-        }
-    }
-
-    public function published(Route $route)
+    public function filter(Route $route)
     {
         /** @var Page|Post $page */
         $page = $route->getParameter('slug');
-
         if ($this->manager->guest() && !$page->isPublished()) {
             throw new NotFoundHttpException;
         }
