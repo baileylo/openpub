@@ -14,8 +14,8 @@ Route::get('category/{category}', ['uses' => Controllers\Post\ListingView::class
 Route::get('category/{category}/{page}', ['uses' => Controllers\Post\ListingView::class . '@category', 'as' => 'category.paginated']);
 
 // Login Page
-Route::get('login', ['uses' => Controllers\Auth\LoginView::class . '@view']);
-Route::post('login', ['uses' => Controllers\Auth\LoginHandler::class . '@handle']);
+Route::get('login', ['uses' => Controllers\Auth\LoginView::class . '@view', 'before' => 'forceSSL']);
+Route::post('login', ['uses' => Controllers\Auth\LoginHandler::class . '@handle', 'before' => 'forceSSL']);
 
 // Logout page
 Route::get('logout', ['uses' => Controllers\Auth\LogoutHandler::class . '@logout', 'as' => 'logout']);
@@ -33,7 +33,7 @@ Route::group(['before' => 'auth'], function () {
     Route::post('/import', ['uses' => Controllers\Admin\ImportHandler::class . '@import']);
 
     // Settings Routes
-    Route::get('/settings', ['uses' => Controllers\User\Settings\SettingsView::class . '@view', 'as' => 'settings']);
+    Route::get('/settings', ['uses' => Controllers\User\Settings\SettingsView::class . '@view', 'as' => 'settings', 'before' => 'forceSSL']);
 
     // Generic Admin Page
     Route::get('/admin/', ['uses' => Controllers\Admin\ListView::class . '@view', 'as' => 'admin']);
@@ -69,7 +69,7 @@ Route::group(['before' => 'auth'], function () {
         Route::patch('{slug}/publish', ['uses' => Controllers\Post\Publish\Publish::class . '@publish', 'as' => 'admin.post.publish']);
         Route::patch('{slug}/unpublish', ['uses' => Controllers\Post\Publish\Unpublish::class . '@unpublish', 'as' => 'admin.post.unpublish']);
 
-        Route::put('/settings', ['uses' => Controllers\User\Settings\SettingsHandler::class . '@handleForm']);
+        Route::put('/settings', ['uses' => Controllers\User\Settings\SettingsHandler::class . '@handleForm', 'before' => 'forceSSL']);
         Route::put('/update-password', ['uses' => Controllers\User\Settings\PasswordHandler::class . '@handleForm', 'as' => 'passwordHandler']);
     });
 });
