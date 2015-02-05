@@ -20,6 +20,7 @@ class RoutingFilterServiceProvider extends ServiceProvider
         $router->filter('afterResourceCache', After\ResourceHttpCacheFilter::class);
         $router->filter('postUrlRedirect', Before\PostUrlRedirect::class);
 
+        $router->filter('forceSSL', Before\ForceSSLFilter::class);
         $router->filter('unpublishedResource', Before\UnpublishedResourceAccessFilter::class);
 
         $router->before(Before\LowerCaseUrlsFilter::class);
