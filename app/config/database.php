@@ -114,7 +114,11 @@ return array(
 
     'mongodb' => [
         'host' => 'mongodb://localhost:27017',
-        'options' => []
+        'collection' => 'blog',
+        'options' => [
+            'password' => $_ENV['MONGO_USER'],
+            'username' => $_ENV['MONGO_PASSWORD']
+        ]
     ]
 
 );
