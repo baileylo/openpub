@@ -37,11 +37,14 @@ class MongoODMServiceProvider extends ServiceProvider
 
         $this->app->singleton('mongodb.connection', function ($app) {
             $config = $app['config']['database.mongodb'];
-            return new \MongoClient($config['host'], $config['options']);
+
+            $server = "mongodb://{$config['host']}/{$config['collection']}";
+
+            return new \MongoClient($server, $config['options']);
         });
 
         $this->app->singleton('mongodb.database', function ($app) {
-            return $app['mongodb.connection']->selectDb('blog');
+            return $app['mongodb.connection'];
         });
 
         $this->app->singleton(DocumentManager::class, function ($app) {
