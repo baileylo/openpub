@@ -116,8 +116,8 @@ return array(
         'host' => 'mongodb://localhost:27017',
         'collection' => 'blog',
         'options' => [
-            'password' => $_ENV['MONGO_USER'],
-            'username' => $_ENV['MONGO_PASSWORD']
+            'password' => isset($_ENV['MONGO_PASSWORD']) ? $_ENV['MONGO_PASSWORD'] : '',
+            'username' => isset($_ENV['MONGO_USER']) ? $_ENV['MONGO_USER'] : ''
         ]
     ]
 
