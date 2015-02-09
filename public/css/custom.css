@@ -58,9 +58,10 @@
 
 pre > code {
     display: block;
+    margin-bottom:20px;
 }
 
-code {
+code, code *{
     font-family: 'Courier New', Courier, monospace;
 }
 
