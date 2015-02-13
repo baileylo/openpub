@@ -2,9 +2,9 @@
 
 namespace Baileylo\BlogApp\Pagination\Presenter;
 
-use Illuminate\Pagination\BootstrapPresenter;
+use Illuminate\Pagination\BootstrapThreePresenter;
 
-class FullPresenter extends BootstrapPresenter
+class FullPresenter extends BootstrapThreePresenter
 {
     /**
      * Get HTML wrapper for a page link.
@@ -14,7 +14,7 @@ class FullPresenter extends BootstrapPresenter
      * @param  string  $rel
      * @return string
      */
-    public function getPageLinkWrapper($url, $page, $rel = null)
+    public function getAvailablePageWrapper($url, $page, $rel = null)
     {
         $rel = is_null($rel) ? '' : ' rel="'.$rel.'"';
 

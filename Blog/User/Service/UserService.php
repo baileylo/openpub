@@ -4,17 +4,17 @@ namespace Baileylo\Blog\User\Service;
 
 use Baileylo\Blog\User\User;
 use Baileylo\Blog\User\UserRepository;
-use Illuminate\Hashing\HasherInterface;
+use Illuminate\Contracts\Hashing\Hasher;
 
 class UserService
 {
     /** @var UserRepository */
     private $userRepository;
 
-    /** @var HasherInterface */
+    /** @var Hasher */
     private $hasher;
 
-    public function __construct(UserRepository $userRepository, HasherInterface $hasher)
+    public function __construct(UserRepository $userRepository, Hasher $hasher)
     {
         $this->userRepository = $userRepository;
         $this->hasher = $hasher;
