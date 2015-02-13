@@ -1,4 +1,4 @@
-{{ '<'.'?'.'xml version="1.0" encoding="UTF-8"?>' }}
+{!! '<'.'?'.'xml version="1.0" encoding="UTF-8"?>' !!}
 <feed
     xmlns="http://www.w3.org/2005/Atom"
     xmlns:thr="http://purl.org/syndication/thread/1.0"
@@ -26,7 +26,7 @@
             <published>{{ $post->getPublishDate()->format(\DateTime::ATOM) }}</published>
             <summary type="html"><![CDATA[{{ $post->getDescription() }}]]></summary>
             <content type="html" xml:base="{{ route('post.permalink', [$post->getPublishDate()->format('Y/m/d'), $post->getSlug()]) }}">
-                <![CDATA[{{ $post->getHtml() }}]]>
+                <![CDATA[{!! $post->getHtml() !!}]]>
             </content>
         </entry>
     @endforeach
