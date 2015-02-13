@@ -24,6 +24,8 @@ class MongoODMServiceProvider extends ServiceProvider
                 $configs['metadata']['extension']
             ));
 
+            $configuration->setDefaultDB($app['config']['database.mongodb.collection']);
+
             return $configuration;
         });
 
