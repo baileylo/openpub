@@ -24,3 +24,9 @@
 
 </article>
 @stop
+
+@section('js')
+    <script src="/js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/highlight/github.css"/>
+    <script>hljs.initHighlightingOnLoad();</script>
+@stop
