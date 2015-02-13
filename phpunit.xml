@@ -7,21 +7,16 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="true"
-         syntaxCheck="false"
->
+         stopOnFailure="false"
+         syntaxCheck="false">
     <testsuites>
-        <testsuite name="Unit">
-            <directory>./tests/unit</directory>
-        </testsuite>
-        <testsuite name="Blog">
-            <directory>./tests/unit/Blog</directory>
-        </testsuite>
-        <testsuite name="Core">
-            <directory>./tests/unit/Core</directory>
-        </testsuite>
-        <testsuite name="BlogApp">
-            <directory>./tests/unit/BlogApp</directory>
+        <testsuite name="Application Test Suite">
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+    </php>
 </phpunit>

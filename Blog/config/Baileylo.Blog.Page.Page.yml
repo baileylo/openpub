@@ -1,5 +1,4 @@
 Baileylo\Blog\Page\Page:
-  db: blog
   type: document
   lifecycleCallbacks:
     prePersist: [setCreatedAt]
