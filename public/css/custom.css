@@ -58,9 +58,10 @@
 
 pre > code {
     display: block;
+    margin-bottom:20px;
 }
 
-code {
+code, code *{
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -86,5 +87,35 @@ form.link button:hover {
 
 tfoot ul.pagination {
     margin-bottom: 0;
+}
+
+.button-bar .button-group.header-button-group {
+    text-align: center;
+    float: none;
+}
+
+.code-editor-wrapper {
+    min-height: 50px;
+    height: 50px;
+    border-radius: 0;
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    resize:vertical;
+    overflow:auto; /* something other than visible */
+    margin-bottom: 16px;
+}
+
+.code-editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+}
+
+.code-editor * {
+    font-family: monospace;
 }
 

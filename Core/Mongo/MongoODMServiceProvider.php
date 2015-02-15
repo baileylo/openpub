@@ -24,6 +24,8 @@ class MongoODMServiceProvider extends ServiceProvider
                 $configs['metadata']['extension']
             ));
 
+            $configuration->setDefaultDB($app['config']['database.mongodb.collection']);
+
             return $configuration;
         });
 
@@ -37,11 +39,15 @@ class MongoODMServiceProvider extends ServiceProvider
 
         $this->app->singleton('mongodb.connection', function ($app) {
             $config = $app['config']['database.mongodb'];
-            return new \MongoClient($config['host'], $config['options']);
+            $options = array_filter($config['options']);
+
+            $server = rtrim("{$config['host']}/{$config['collection']}", '/');
+
+            return new \MongoClient($server, $options);
         });
 
         $this->app->singleton('mongodb.database', function ($app) {
-            return $app['mongodb.connection']->selectDb('blog');
+            return $app['mongodb.connection']->{$app['config']['database.mongodb.collection']};
         });
 
         $this->app->singleton(DocumentManager::class, function ($app) {

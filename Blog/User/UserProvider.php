@@ -2,29 +2,28 @@
 
 namespace Baileylo\Blog\User;
 
-use Baileylo\Blog\User\Events\UpdateRememberToken;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\UserProviderInterface;
-use Illuminate\Hashing\HasherInterface;
-use Laracasts\CommanderEvents\EventDispatcher;
+use App\Events\UpdateRememberMeToken;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Hashing\Hasher;
 
-class UserProvider implements UserProviderInterface
+class UserProvider implements \Illuminate\Contracts\Auth\UserProvider
 {
     /** @var UserRepository */
     protected $repository;
 
-    /** @var EventDispatcher */
+    /** @var Dispatcher */
     private $dispatcher;
 
-    /** @var HasherInterface */
+    /** @var Hasher */
     private $hasher;
 
     /**
-     * @param UserRepository  $userRepo
-     * @param EventDispatcher $dispatcher
-     * @param HasherInterface $hasher
+     * @param UserRepository $userRepo
+     * @param Dispatcher     $dispatcher
+     * @param Hasher         $hasher
      */
-    public function __construct(UserRepository $userRepo, EventDispatcher $dispatcher, HasherInterface $hasher)
+    public function __construct(UserRepository $userRepo, Dispatcher $dispatcher, Hasher $hasher)
     {
         $this->repository = $userRepo;
         $this->dispatcher = $dispatcher;
@@ -36,7 +35,7 @@ class UserProvider implements UserProviderInterface
      *
      * @param  mixed $identifier
      *
-     * @return \Illuminate\Auth\UserInterface|null
+     * @return Authenticatable|null
      */
     public function retrieveById($identifier)
     {
@@ -49,7 +48,7 @@ class UserProvider implements UserProviderInterface
      * @param  mixed  $identifier
      * @param  string $token
      *
-     * @return \Illuminate\Auth\UserInterface|null
+     * @return Authenticatable|null
      */
     public function retrieveByToken($identifier, $token)
     {
@@ -59,14 +58,14 @@ class UserProvider implements UserProviderInterface
     /**
      * Update the "remember me" token for the given user in storage.
      *
-     * @param  \Illuminate\Auth\UserInterface $user
-     * @param  string                         $token
+     * @param  Authenticatable $user
+     * @param  string          $token
      *
      * @return void
      */
-    public function updateRememberToken(UserInterface $user, $token)
+    public function updateRememberToken(Authenticatable $user, $token)
     {
-        $this->dispatcher->dispatch([new UpdateRememberToken($user, $token)]);
+        $this->dispatcher->fire(new UpdateRememberMeToken($user, $token));
     }
 
     /**
@@ -74,7 +73,7 @@ class UserProvider implements UserProviderInterface
      *
      * @param  array $credentials
      *
-     * @return \Illuminate\Auth\UserInterface|null
+     * @return Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials)
     {
@@ -88,12 +87,12 @@ class UserProvider implements UserProviderInterface
     /**
      * Validate a user against the given credentials.
      *
-     * @param  \Illuminate\Auth\UserInterface $user
-     * @param  array                          $credentials
+     * @param  Authenticatable $user
+     * @param  array           $credentials
      *
      * @return bool
      */
-    public function validateCredentials(UserInterface $user, array $credentials)
+    public function validateCredentials(Authenticatable $user, array $credentials)
     {
         $plain = $credentials['password'];
 

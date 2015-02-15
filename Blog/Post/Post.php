@@ -124,14 +124,31 @@ class Post
         }
     }
 
+    /**
+     * Changes the state of the post to published.
+     * @param \DateTimeInterface $date
+     */
     public function publish(\DateTimeInterface $date)
     {
         $this->publishDate = $date;
     }
 
+    /**
+     * Makes a post unpublished
+     */
     public function unpublish()
     {
         $this->publishDate = null;
+    }
+
+    /**
+     * Determine if a post is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return !is_null($this->publishDate) && $this->publishDate <= new \DateTime();
     }
 
     /**
@@ -139,14 +156,20 @@ class Post
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return is_null($this->updatedAt) ? $this->publishDate : $this->updatedAt;
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * Sets the time that this Post was last updated at.
+     *
+     * @param \DateTime $updatedAt Time when the Post was last updated, if null will use current time.
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt($updatedAt = null)
     {
+        if (is_null($updatedAt)) {
+            $updatedAt = new \DateTime;
+        }
+
         $this->updatedAt = $updatedAt;
     }
 }

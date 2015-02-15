@@ -5,9 +5,10 @@ namespace Baileylo\Blog\ServiceProvider;
 use Baileylo\Blog\User\UserProvider;
 use Baileylo\Blog\User\UserRepository;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Hashing\HasherInterface;
 use Illuminate\Support\ServiceProvider;
-use Laracasts\CommanderEvents\EventDispatcher;
 
 class UserProviderServiceProvider extends ServiceProvider
 {
@@ -26,8 +27,8 @@ class UserProviderServiceProvider extends ServiceProvider
         $this->app[AuthManager::class]->extend('blog', function ($app) {
             return new UserProvider(
                 $app[UserRepository::class],
-                $app[EventDispatcher::class],
-                $app[HasherInterface::class]
+                $app[Dispatcher::class],
+                $app[Hasher::class]
             );
         });
     }

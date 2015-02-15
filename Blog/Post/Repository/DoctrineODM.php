@@ -2,9 +2,9 @@
 
 namespace Baileylo\Blog\Post\Repository;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Baileylo\Blog\Post\Post;
 use Baileylo\Blog\Post\PostRepository;
-use Carbon\Carbon;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
 class DoctrineODM implements PostRepository
@@ -112,6 +112,28 @@ class DoctrineODM implements PostRepository
     }
 
     /**
+     * A list of recently published posts.
+     *
+     * @param string $categorySlug
+     * @param int    $pageSize Number of posts to return
+     * @param int    $skip     Number of posts to skip
+     *
+     * @return Post[]|Cursor
+     */
+    public function findRecentPostsByCategory($categorySlug, $pageSize, $skip)
+    {
+        return $this->repository->createQueryBuilder()
+            ->field('publishDate')->lte(new \DateTime('now'))
+            ->field('categories.slug')->equals($categorySlug)
+            ->limit($pageSize)
+            ->skip($skip)
+            ->sort('publishDate', -1)
+            ->getQuery()
+            ->execute();
+    }
+
+
+    /**
      * Find all pips irregardless of their publish state
      *
      * @param int $pageSize
@@ -145,6 +167,11 @@ class DoctrineODM implements PostRepository
             $query->field('publishDate')->lte(new \DateTime('now'));
         }
 
-        return $query->getQuery()->getSingleResult()->getUpdatedAt();
+        $post = $query->getQuery()->getSingleResult();
+        if (!$post) {
+            return null;
+        }
+
+        return $post->getUpdatedAt();
     }
 }

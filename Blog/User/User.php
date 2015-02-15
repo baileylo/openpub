@@ -2,12 +2,15 @@
 
 namespace Baileylo\Blog\User;
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Hashing\HasherInterface;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Str;
 
-class User implements UserInterface
+class User implements AuthenticatableContract
 {
+    use Authenticatable;
+
     /** @var \MongoId|String UUID */
     protected $id;
 
@@ -67,10 +70,10 @@ class User implements UserInterface
     /**
      * Updates and hashes a user's password
      *
-     * @param HasherInterface $hasher   Object used to hash password
-     * @param String          $password
+     * @param Hasher $hasher Object used to hash password
+     * @param String $password
      */
-    public function changePassword(HasherInterface $hasher, $password)
+    public function changePassword(Hasher $hasher, $password)
     {
         $this->password = $hasher->make($password);
     }
@@ -107,16 +110,6 @@ class User implements UserInterface
     public function getAuthIdentifier()
     {
         return $this->id;
-    }
-
-    /**
-     * Get the hashed password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
-    {
-        return $this->password;
     }
 
     /**
