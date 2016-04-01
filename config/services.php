@@ -15,24 +15,24 @@ return [
     */
 
     'mailgun' => [
-        'domain' => '',
-        'secret' => '',
-    ],
-    'mandrill' => [
-        'secret' => '',
-    ],
-    'ses' => [
-        'key' => '',
-        'secret' => '',
-        'region' => 'us-east-1',
-    ],
-    'stripe' => [
-        'model' => 'User',
-        'secret' => '',
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
     ],
 
-    'google-analytics' => [
-        'id' => env('GA_ID')
-    ]
+    'ses' => [
+        'key' => env('SES_KEY'),
+        'secret' => env('SES_SECRET'),
+        'region' => 'us-east-1',
+    ],
+
+    'sparkpost' => [
+        'secret' => env('SPARKPOST_SECRET'),
+    ],
+
+    'stripe' => [
+        'model' => App\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
 
 ];

@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', $site->getTitle())</title>
+    <title>@yield('title')</title>
 
-    <link rel="alternate" type="application/rss+xml" title="Infectious Learning &raquo; Feed" href="{{ route('feed.atom') }}" />
+    {{--<link rel="alternate" type="application/rss+xml" title="Infectious Learning &raquo; Feed" href="{{ route('feed.atom') }}" />--}}
 
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600italic,600,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">

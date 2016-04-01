@@ -1,8 +1,0 @@
-Baileylo\Blog\Category\Category:
-  type: embeddedDocument
-  fields:
-    slug:
-      type: string
-      index: true
-    name:
-      type: string

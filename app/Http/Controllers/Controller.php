@@ -1,11 +1,22 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Illuminate\Foundation\Bus\DispatchesCommands;
+namespace App\Http\Controllers;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Routing\ResponseFactory;
 
-abstract class Controller extends BaseController {
+class Controller extends BaseController
+{
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-	use DispatchesCommands, ValidatesRequests;
+    /** @var ResponseFactory */
+    protected $responseFactory;
 
+    public function __construct(ResponseFactory $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
 }
