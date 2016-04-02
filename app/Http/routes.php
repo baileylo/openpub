@@ -16,6 +16,7 @@ use Illuminate\Routing\Router;
 Route::group(['middleware' => ['web']], function (Router $router) {
     $router->get('', ['as' => 'home', 'uses' => 'PostController@index']);
     $router->resource('post', 'PostController');
+    $router->resource('page', 'PageController');
 
     $router->get('login', ['as' => 'login', 'uses' => 'Auth\\AuthController@getLogin']);
     $router->post('login', 'Auth\\AuthController@login');

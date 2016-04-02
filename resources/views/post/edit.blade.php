@@ -1,6 +1,6 @@
 @extends('layouts.full')
 
-@section('title')Edit &mdash; {{ $post->title }} &mdash; @stop
+@section('title')Edit &mdash; {{ $post->title }} @stop
 
 @section('content')
     <form action="{{ route('post.update', $post->slug) }}" method="POST">

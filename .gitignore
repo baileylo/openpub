@@ -7,3 +7,6 @@ composer.lock
 .DS_Store
 Thumbs.db
 .env
+
+_ide_helper.php
+storage/debugbar/
