@@ -81,7 +81,7 @@ class Post extends Model
     public static function scopePublished()
     {
         return static::where('published_at', '<=', new \DateTime())
-            ->orderBy('published_at', 'asc');
+            ->orderBy('published_at', 'desc');
     }
 
     public static function scopeUnpublished()
