@@ -35,6 +35,19 @@ class PostController extends Controller
         ]);
     }
 
+    public function category($slug)
+    {
+        /** @var Category $category */
+        $category = Category::find($slug);
+        if (!$category) {
+            throw new NotFoundHttpException;
+        }
+
+        return $this->responseFactory->view('post.list', [
+            'posts' => $category->posts()->published()->simplePaginate()
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

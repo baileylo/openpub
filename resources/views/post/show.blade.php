@@ -18,7 +18,7 @@
         <div class="categories">
             <h6>Posted In:</h6>
             @foreach($post->categories as $category)
-                <a href="#" class="button tiny round">{{ $category->name }}</a>
+                <a href="{{ route('category', $category) }}" class="button tiny round">{{ $category->name }}</a>
             @endforeach
         </div>
 

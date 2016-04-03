@@ -18,6 +18,8 @@ Route::group(['middleware' => ['web']], function (Router $router) {
     $router->resource('post', 'PostController');
     $router->resource('page', 'PageController');
 
+    $router->get('category/{category}', ['as' => 'category', 'uses' => 'PostController@category']);
+
     $router->get('login', ['as' => 'login', 'uses' => 'Auth\\AuthController@getLogin']);
     $router->post('login', 'Auth\\AuthController@login');
     $router->get('logout', ['as' => 'logout', 'uses' => 'Auth\\AuthController@logout']);
