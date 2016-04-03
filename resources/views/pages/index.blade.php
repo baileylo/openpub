@@ -13,7 +13,7 @@
         @foreach($pages as $page)
             <tr>
                 <td>
-                    <a href="{{ route('page.show', $page->slug) }}">{{ $page->title }}</a>
+                    <a href="{{ route('resource', $page->slug) }}">{{ $page->title }}</a>
                     <div class="visible-for-small-down">
                         <a href="{{ route('page.edit', $page->slug) }}" title="Edit" class="label round"><i class="fa fa-pencil"></i></a>
                         @include('partials.delete-link', ['url' => route('page.destroy', $page->slug)])

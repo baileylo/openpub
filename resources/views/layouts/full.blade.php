@@ -11,7 +11,7 @@
     <div class="button-bar">
         <ul class="header-button-group button-group">
             <li><a class="small button" href="{{ route('home') }}" title="Home">Home</a></li>
-            <li><a class="small button" href="{{ route('page.show', 'about-me') }}" title="About Me">About Me</a></li>
+            <li><a class="small button" href="{{ route('resource', 'about-me') }}" title="About Me">About Me</a></li>
             <li class="nav-bar-item-logo">
                 <div class="nav-bar-logo-container">
                     <img src="/img/profile.png" width="125px"/>

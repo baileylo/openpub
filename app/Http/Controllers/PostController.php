@@ -95,7 +95,7 @@ class PostController extends Controller
             $this->getCategories($request->input('categories'))
         );
 
-        return $this->responseFactory->redirectToRoute('post.show', $post->slug);
+        return $this->responseFactory->redirectToRoute('resource', $post->slug);
     }
 
     private function getCategories($categories)
@@ -132,7 +132,7 @@ class PostController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return $this->responseFactory->view('post.show', compact('post'));
+        return $this->responseFactory->view('resource', compact('post'));
     }
 
     /**

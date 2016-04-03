@@ -15,9 +15,8 @@ use Illuminate\Routing\Router;
 
 Route::group(['middleware' => ['web']], function (Router $router) {
     $router->get('', ['as' => 'home', 'uses' => 'PostController@index']);
-    $router->resource('post', 'PostController');
-    $router->resource('page', 'PageController');
-
+    $router->resource('post', 'PostController', ['except' => ['show']]);
+    $router->resource('page', 'PageController', ['except' => ['show']]);
     $router->get('category/{category}', ['as' => 'category', 'uses' => 'PostController@category']);
 
     $router->get('login', ['as' => 'login', 'uses' => 'Auth\\AuthController@getLogin']);
@@ -26,7 +25,8 @@ Route::group(['middleware' => ['web']], function (Router $router) {
 
     $router->group(['middleware' => ['auth']], function (Router $router) {
         $router->get('admin', ['as' => 'admin', 'uses' => 'PostController@overview']);
-
         $router->get('settings', ['as' => 'settings', 'uses' => function () {return 'coming soon!';}]);
     });
+
+    $router->get('{slug}', ['as' => 'resource', 'uses' => 'ResourceController@find']);
 });

@@ -16,7 +16,7 @@
             @foreach($pending as $post)
                 <tr>
                     <td>
-                        <a href="{{ route('post.show', $post->slug) }}">{{ $post->title }}</a>
+                        <a href="{{ route('resource', $post->slug) }}">{{ $post->title }}</a>
                         <div class="visible-for-small-down">
                             <a href="{{ route('post.edit', $post->slug) }}" title="Edit"><i class="fa fa-pencil"></i></a>
                             {{--{{ Form::csrfLink('<i class="fa fa-remove"></i>', ['route' => ['post.unpublish', $post->getSlug()], 'method' => 'patch', 'title' => 'Un Publish']) }}--}}
@@ -52,7 +52,7 @@
         @foreach($published as $post)
             <tr>
                 <td>
-                    <a href="{{ route('post.show', $post->slug) }}">{{ $post->title }}</a>
+                    <a href="{{ route('resource', $post->slug) }}">{{ $post->title }}</a>
                     <div class="visible-for-small-down">
                         <a href="{{ route('post.edit', $post->slug) }}" title="Edit" class="label round"><i class="fa fa-pencil"></i></a>
                         @include('partials.delete-link', ['url' => route('post.destroy', $post->slug)])
