@@ -78,15 +78,15 @@ class Post extends Model
         return $this->published_at && $this->published_at <= new \DateTime();
     }
 
-    public static function scopePublished()
+    public function scopePublished($query)
     {
-        return static::where('published_at', '<=', new \DateTime())
+        return $query->where('published_at', '<=', new \DateTime())
             ->orderBy('published_at', 'desc');
     }
 
-    public static function scopeUnpublished()
+    public function scopeUnpublished($query)
     {
-        return static::where('published_at', '>', new \DateTime())
+        return $query->where('published_at', '>', new \DateTime())
             ->orWhere('published_at', null)
             ->orderBy('published_at', 'desc');
     }

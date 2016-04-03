@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         return $this->responseFactory->view('post.list', [
-            'posts' => Post::scopePublished()->with('user')->simplePaginate(25)
+            'posts' => Post::published()->simplePaginate(25)
         ]);
     }
 
@@ -30,8 +30,8 @@ class PostController extends Controller
     public function overview()
     {
         return $this->responseFactory->view('post.overview', [
-            'published' => Post::scopePublished()->paginate(25),
-            'pending'   => Post::scopeUnpublished()->limit(25)->get(),
+            'published' => Post::published()->paginate(25),
+            'pending'   => Post::unpublished()->limit(25)->get(),
         ]);
     }
 
