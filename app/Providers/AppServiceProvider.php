@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\Pagination\FoundationFourPresenter;
+use App\Services\Template\TemplateProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -33,5 +34,11 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
+
+        $this->app->bind(TemplateProvider::class, function () {
+            return $this->app->build(TemplateProvider::class, [
+                'templateDirectory' => resource_path('views/post/templates')
+            ]);
+        });
     }
 }

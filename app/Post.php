@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string    markdown
- * @property string    html
- * @property string    author
- * @property bool      is_published
- * @property \DateTime published_at
- * @property string    description
- * @property string    title
- * @property string    slug
- * @property Category[]|Collection     categories
+ * @property string                markdown
+ * @property string                html
+ * @property string                author
+ * @property bool                  is_published
+ * @property \DateTime             published_at
+ * @property string                description
+ * @property string                title
+ * @property string                slug
+ * @property string                template
+ * @property Category[]|Collection categories
  */
 class Post extends Model
 {
@@ -24,7 +25,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'published_at', 'updated_at', 'slug', 'title', 'description', 'markdown', 'html'
+        'published_at', 'updated_at', 'slug', 'title', 'description', 'markdown', 'html', 'template'
     ];
 
     /**

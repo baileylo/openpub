@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\Services\Template\TemplateProvider;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Collection;
@@ -51,11 +52,15 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param TemplateProvider $template
+     *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(TemplateProvider $template)
     {
-        return $this->responseFactory->view('post.create');
+        return $this->responseFactory->view('post.create', [
+            'templates' => $template->getTemplates()
+        ]);
     }
 
     /**
@@ -127,28 +132,35 @@ class PostController extends Controller
      */
     public function show($post)
     {
+        /** @var Post $post */
         $post = Post::findBySlug($post, ['categories']);
         if (!$post) {
             throw new NotFoundHttpException();
         }
 
-        return $this->responseFactory->view('resource', compact('post'));
+        return $this->responseFactory->view("post.templates.{$post->template}", compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  string $post
+     * @param TemplateProvider $template
+     * @param  string          $post
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit($post)
+    public function edit(TemplateProvider $template, $post)
     {
         $post = Post::findBySlug($post);
         if (!$post) {
             throw new NotFoundHttpException();
         }
 
-        return $this->responseFactory->view('post.edit', ['post' => $post, 'status' => session('save.status', false)]);
+        return $this->responseFactory->view('post.edit', [
+            'post'      => $post,
+            'status'    => session('save.status', false),
+            'templates' => $template->getTemplates()
+        ]);
     }
 
     /**
@@ -168,11 +180,13 @@ class PostController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $post->markdown = $request->input('body');
-        $post->html = $converter->convertToHtml($post->markdown);
-
-        $post->description = $request->input('description');
-        $post->title = $request->input('title');
+        $post->fill([
+            'title'       => $request->input('title'),
+            'markdown'    => $request->input('body'),
+            'description' => $request->input('description'),
+            'html'        => $converter->convertToHtml($request->input('body')),
+            'template'    => $request->input('template')
+        ]);
 
         $save_status = false;
         if (!$post->is_published && $request->input('isPublished') === 'yes') {
