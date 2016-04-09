@@ -1,6 +1,6 @@
 @extends('layouts.full')
 
-@section('title')Admin &mdash;  @stop
+@section('title', 'Admin')
 
 @section('content')
     @if (count($pending))
