@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article\Article;
 use App\Category;
 use App\Article\Post;
 use App\Services\Template\TemplateProvider;
@@ -11,8 +12,16 @@ use Illuminate\Support\Collection;
 use League\CommonMark\CommonMarkConverter;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PostController extends Controller
+class PostController extends ArticleController
 {
+    protected $templates = [
+        'create' => 'post.create'
+    ];
+
+    protected $redirects = [
+        'destroy' => 'admin'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -50,20 +59,6 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param TemplateProvider $template
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(TemplateProvider $template)
-    {
-        return $this->responseFactory->view('post.create', [
-            'templates' => $template->getTemplates()
-        ]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -82,19 +77,11 @@ class PostController extends Controller
             $slug .= '-' . time();
         }
 
-        $post = new Post([
-            'slug'        => $slug,
-            'title'       => $request->input('title'),
-            'description' => $request->input('description')
-        ]);
-        $body       = $request->input('body');
-        $post->html = $body;
+        $postData = $request->only('title', 'description', 'template', 'body', 'is_markdown');
 
-        if ($request->has('is_markdown')) {
-            $post->markdown = $body;
-            $post->html     = $converter->convertToHtml($body);
-            $post->is_html  = false;
-        }
+        /** @var Post $post */
+        $post = $this->updateArticle(new Post, $converter, $postData + ['slug' => $slug]);
+
 
         if ($request->input('isPublished') === 'yes') {
             $post->published_at = new \DateTime('-5 seconds');
@@ -131,23 +118,6 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  string  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show($post)
-    {
-        /** @var Post $post */
-        $post = Post::findBySlug($post, ['categories']);
-        if (!$post) {
-            throw new NotFoundHttpException();
-        }
-
-        return $this->responseFactory->view("post.templates.{$post->template}", compact('post'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param TemplateProvider $template
@@ -157,13 +127,8 @@ class PostController extends Controller
      */
     public function edit(TemplateProvider $template, $post)
     {
-        $post = Post::findBySlug($post);
-        if (!$post) {
-            throw new NotFoundHttpException();
-        }
-
         return $this->responseFactory->view('post.edit', [
-            'post'      => $post,
+            'post'      => $this->findBySlug($post, ['categories']),
             'status'    => session('save.status', false),
             'templates' => $template->getTemplates()
         ]);
@@ -181,73 +146,26 @@ class PostController extends Controller
     public function update(Request $request, CommonMarkConverter $converter, $post)
     {
         /** @var Post $post */
-        $post = Post::findBySlug($post, []);
-        if (!$post) {
-            throw new NotFoundHttpException();
-        }
+        $post = $this->findBySlug($post);
 
-        $post->is_html = !$request->has('is_markdown');
+        $data = $request->only('title', 'template', 'is_markdown', 'body', 'description');
+        $data['slug'] = $post->slug;
 
-        if (!$request->has('is_markdown')) {
-            $post->markdown = '';
-            $post->html     = $request->input('body');
-        } else {
-            $post->markdown = $request->input('body');
-            $post->html     = $converter->convertToHtml($request->input('body'));
-        }
+        $post = $this->updateArticle($post, $converter, $data);
 
-        $post->fill([
-            'title'       => $request->input('title'),
-            'description' => $request->input('description'),
-            'template'    => $request->input('template')
-        ]);
-
-        $save_status = false;
         if (!$post->is_published && $request->input('isPublished') === 'yes') {
             $post->published_at = new \DateTime('-5 seconds');
-            $save_status = 'published';
-        }
-
-        $sync = $post->categories()->sync(
-            $this->getCategories($request->input('categories'))->pluck('slug')->toArray()
-        );
-
-        if (!$save_status && ($post->isDirty() || $sync['attached'] || $sync['detached'])) {
-            $save_status = 'updated';
         }
 
         $post->save();
 
-        // Expected Save Status:
-        // 'created' => When post is created, but not published
-        // 'updated' => When post is updated but not published or is already published
-        // 'published' => When post is published and was not already.
+        $post->categories()->sync(
+            $this->getCategories($request->input('categories'))->pluck('slug')->toArray()
+        );
 
-        if ($post->wasRecentlyCreated && !$post->is_published) {
-            $save_status = 'created';
-        }
-
+        $save_status = $post->wasRecentlyCreated && !$post->is_published ? 'created' : 'updated';
         return $this->responseFactory
             ->redirectToRoute('post.edit', $post->slug)
             ->with('save.status', $save_status);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($post)
-    {
-        /** @var Post $post */
-        $post = Post::findBySlug($post, []);
-        if (!$post) {
-            throw new NotFoundHttpException();;
-        }
-
-        $post->delete();
-
-        return $this->responseFactory->redirectToRoute('admin');
     }
 }

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string    template
  * @property bool      is_html      Flag saying if the input mode was markdown or html
  * @property \DateTime updated_at
+ * @property string  description
  */
 abstract class Article extends Model
 {

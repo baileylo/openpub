@@ -11,8 +11,8 @@ class ResourceController extends Controller
 {
     public function find($slug)
     {
-        /** @var Article $post */
-        $article = Article::findBySlug($slug, ['categories']);
+        /** @var Article $article */
+        $article = Article::findBySlug($slug, []);
         if (!$article) {
             throw new NotFoundHttpException;
         }
