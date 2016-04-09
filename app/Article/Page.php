@@ -6,12 +6,7 @@ use App\Article\Post;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int       id
- * @property string    title
- * @property string    body
- * @property string    slug
- * @property \DateTime created_at
- * @property \DateTime updated_at
+ * @property string body
  */
 class Page extends Article
 {
@@ -35,9 +30,16 @@ class Page extends Article
     {
         parent::boot();
 
-        // unset the post scope thing.
-        unset(static::$globalScopes[static::class][PostScope::class]);
-
         static::addGlobalScope(new PageScope);
+    }
+
+    /**
+     * Pages are published by default.
+     *
+     * @return bool
+     */
+    public function getIsPublishedAttribute()
+    {
+        return true;
     }
 }

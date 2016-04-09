@@ -17,6 +17,10 @@ class ResourceController extends Controller
             throw new NotFoundHttpException;
         }
 
+        if (!$article->is_published && !\Auth::check()) {
+            throw new NotFoundHttpException;
+        }
+
         return $this->responseFactory->view("post.templates.{$article->template}", [
             'article' => $article
         ]);

@@ -9,9 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  *
- * @property bool                  is_published
- * @property string                description
- * @property \DateTime published_at
  * @property Category[]|Collection categories
  */
 class Post extends Article
@@ -38,14 +35,6 @@ class Post extends Article
     public function categories()
     {
         return $this->belongsToMany(Category::class);
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsPublishedAttribute()
-    {
-        return $this->published_at && $this->published_at <= new \DateTime();
     }
 
     public function scopePublished($query)

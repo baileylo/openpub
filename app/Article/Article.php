@@ -15,7 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string    template
  * @property bool      is_html      Flag saying if the input mode was markdown or html
  * @property \DateTime updated_at
- * @property string  description
+ * @property \DateTime published_at
+ * @property string    description
+ * @property bool      is_published
  */
 abstract class Article extends Model
 {
@@ -55,6 +57,14 @@ abstract class Article extends Model
         if (! $this->isDirty(static::UPDATED_AT)) {
             $this->setUpdatedAt($time);
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsPublishedAttribute()
+    {
+        return $this->published_at && $this->published_at <= new \DateTime();
     }
 
     public function user()
