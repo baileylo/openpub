@@ -31,6 +31,20 @@
                 @endif
             </div>
         </div>
+
+        <div class="row">
+            <div class="small-2 columns">
+                <label for="template" class="right inline">Template</label>
+            </div>
+            <div class="small-10 columns">
+                <select name="template" id="template">
+                    @foreach($templates as $template)
+                        <option value="{{ $template }}">{{ ucwords($template) }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
         <div class="row">
             <div class="large-12 columns @if($errors->has('body')) error @endif">
                 <textarea name="body" id="body" cols="30" rows="8" placeholder="Body: The html for the page" required>{{ old('body', $page->body) }}</textarea>
