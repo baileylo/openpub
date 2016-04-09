@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Article\Post;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model

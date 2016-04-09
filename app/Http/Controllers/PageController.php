@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Page;
+use App\Article\Page;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

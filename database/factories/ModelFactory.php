@@ -20,7 +20,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Post::class, function (Faker\Generator $faker) {
+$factory->define(\App\Article\Post::class, function (Faker\Generator $faker) {
     $body = $faker->paragraphs(3, true);
     return [
         'published_at' => $faker->dateTimeBetween('-6 years', '+2 weeks'),

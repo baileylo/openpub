@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Post;
+use App\Article\Post;
 use App\Services\Template\TemplateProvider;
 use Illuminate\Http\Request;
 use App\Http\Requests;

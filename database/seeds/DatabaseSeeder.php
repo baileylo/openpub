@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'logan@logansbailey.com',
             'password' => password_hash('password', PASSWORD_DEFAULT),
         ])->each(function (App\User $user) {
-            factory(App\Post::class)->times(50)->create([
+            factory(\App\Article\Post::class)->times(50)->create([
                 'user_id' => $user->id
             ]);
         });

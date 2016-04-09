@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Article\Post;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
