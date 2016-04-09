@@ -1,9 +1,8 @@
 @extends('layouts.full')
 
-@section('title')Login &mdash;  @stop
+@section('title', 'Login')
 
 @section('content')
-
 <form method="POST">
     {!! csrf_field() !!}
     <div class="row">
@@ -19,7 +18,6 @@
                             <small class="error">{{ $errors->first('email') }}</small>
                         @endif
                     </label>
-
                 </div>
             </div>
             <div class="row">
