@@ -40,11 +40,12 @@
             <div class="small-10 columns">
                 <select name="template" id="template">
                     @foreach($templates as $template)
-                        <option value="{{ $template }}">{{ ucwords($template) }}</option>
+                        <option value="{{ $template }}" @if ($post->template === $template) selected @endif>{{ ucwords($template) }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
+
         <div class="row">
             <div class="large-12 columns @if($errors->has('description')) error @endif">
                 <textarea name="description" id="description" cols="30" rows="2" placeholder="Description: Short description used in OGP" required>{{ old('description', $post->description) }}</textarea>
@@ -55,14 +56,26 @@
         </div>
         <div class="row">
             <div class="large-12 columns @if($errors->has('body')) error @endif">
-                <textarea name="body" id="body" cols="30" rows="15" placeholder="Post: Body of the post written in Markdown" required="true">{!! old('body', $post->markdown) !!}</textarea>
+                <textarea name="body" id="body" cols="30" rows="15" placeholder="Post: Body of the post written in Markdown" required="true">{!! old('body', $post->is_html ? $post->html : $post->markdown) !!}</textarea>
                 @if($errors->has('body'))
                     <small class="error">{{ $errors->first('body') }}</small>
                 @endif
             </div>
         </div>
         <div class="row">
-            <div class="large-12 columns text-right">
+            <div class="large-3 columns">
+                <div class="clear-fix">
+                    <div class="left small">
+                        <label for="markdown-toggle" title="Enable markdown parsing of body.">Markdown:</label>
+                    </div>
+                    <div class="switch round tiny right">
+                        <input id="markdown-toggle" type="checkbox" name="is_markdown" value="yes" @if(!$post->is_html) checked @endif>
+                        <label for="markdown-toggle">Markdown Enabled</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="large-9 columns text-right">
                 <a class="button alert" href="{{ route('admin') }}">Cancel</a>
                 @if (!$post->is_published)
                     <button type="submit" name="isPublished" value="yes">Save &amp; Publish</button>

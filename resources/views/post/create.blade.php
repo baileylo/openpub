@@ -1,6 +1,6 @@
 @extends('layouts.full')
 
-@section('title')Create Post &mdash; @stop
+@section('title', 'Create Post')
 
 @section('content')
     <form action="{{ route('post.store') }}" method="POST">
@@ -51,7 +51,18 @@
             </div>
         </div>
         <div class="row">
-            <div class="large-12 columns text-right">
+            <div class="large-3 columns">
+                <div class="clear-fix">
+                    <div class="left small">
+                        <label for="markdown-toggle" title="Enable markdown parsing of body.">Markdown:</label>
+                    </div>
+                    <div class="switch round tiny right">
+                        <input id="markdown-toggle" type="checkbox" name="is_markdown" value="yes" checked>
+                        <label for="markdown-toggle">Markdown Enabled</label>
+                    </div>
+                </div>
+            </div>
+            <div class="large-9 columns text-right">
                 <a class="button alert" href="{{ route('admin') }}">Cancel</a>
                 <button type="submit" name="isPublished" value="yes">Save &amp; Publish</button>
                 <button type="submit" name="isPublished" value="no" class="success">Save</button>

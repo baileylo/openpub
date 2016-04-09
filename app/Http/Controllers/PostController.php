@@ -85,10 +85,16 @@ class PostController extends Controller
         $post = new Post([
             'slug'        => $slug,
             'title'       => $request->input('title'),
-            'description' => $request->input('description'),
-            'markdown'    => $request->input('body'),
-            'html'        => $converter->convertToHtml($request->input('body'))
+            'description' => $request->input('description')
         ]);
+        $body       = $request->input('body');
+        $post->html = $body;
+
+        if ($request->has('is_markdown')) {
+            $post->markdown = $body;
+            $post->html     = $converter->convertToHtml($body);
+            $post->is_html  = false;
+        }
 
         if ($request->input('isPublished') === 'yes') {
             $post->published_at = new \DateTime('-5 seconds');
@@ -180,11 +186,19 @@ class PostController extends Controller
             throw new NotFoundHttpException();
         }
 
+        $post->is_html = !$request->has('is_markdown');
+
+        if (!$request->has('is_markdown')) {
+            $post->markdown = '';
+            $post->html     = $request->input('body');
+        } else {
+            $post->markdown = $request->input('body');
+            $post->html     = $converter->convertToHtml($request->input('body'));
+        }
+
         $post->fill([
             'title'       => $request->input('title'),
-            'markdown'    => $request->input('body'),
             'description' => $request->input('description'),
-            'html'        => $converter->convertToHtml($request->input('body')),
             'template'    => $request->input('template')
         ]);
 

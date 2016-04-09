@@ -6,6 +6,7 @@ use App\Article\Page;
 use App\Services\Template\TemplateProvider;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use League\CommonMark\CommonMarkConverter;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PageController extends Controller
@@ -39,12 +40,21 @@ class PageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param CommonMarkConverter       $converter
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CommonMarkConverter $converter)
     {
         $page       = new Page($request->only('title', 'slug', 'template'));
+        $body       = $request->input('body');
+        $page->html = $body;
+        if ($request->input('is_markdown')) {
+            $page->markdown = $body;
+            $page->html     = $converter->convertToHtml($body);
+            $page->is_html  = false;
+        }
 
         $page->save();
 
@@ -89,14 +99,24 @@ class PageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
+     * @param CommonMarkConverter       $converter
      * @param  string                   $slug
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, CommonMarkConverter $converter, $slug)
     {
         $page = $this->findPage($slug);
 
+        $page->is_html = !$request->has('is_markdown');
+
+        if ($page->is_html) {
+            $page->html     = $request->input('body');
+            $page->markdown = '';
+        } else {
+            $page->html     = $converter->convertToHtml($request->input('body'));
+            $page->markdown = $request->input('body');
+        }
 
         $page->fill([
             'title'       => $request->input('title'),

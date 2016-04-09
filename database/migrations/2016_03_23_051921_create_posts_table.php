@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('description');
             $table->text('markdown');
             $table->text('html');
+            $table->boolean('is_html')->default(true);
             $table->string('template');
             $table->dateTime('published_at')->nullable();
             $table->dateTime('updated_at')->nullable();
