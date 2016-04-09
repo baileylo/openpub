@@ -1,9 +1,9 @@
 @extends('layouts.full')
 
-@section('title', $page->title)
+@section('title', $article->title)
 
 @section('content')
     <article class="view-article">
-        {!! $page->body !!}
+        {!! $article->html !!}
     </article>
 @stop
