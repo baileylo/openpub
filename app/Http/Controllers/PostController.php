@@ -68,6 +68,8 @@ class PostController extends ArticleController
      */
     public function store(Request $request, CommonMarkConverter $converter)
     {
+        $this->validate($request, $this->getValidationRules(new Post, $request));
+
         /** @var \App\User $user */
         $user = $request->user();
 
@@ -148,6 +150,8 @@ class PostController extends ArticleController
         /** @var Post $post */
         $post = $this->findBySlug($post);
 
+        $this->validate($request, $this->getValidationRules($post, $request));
+
         $data = $request->only('title', 'template', 'is_markdown', 'body', 'description');
         $data['slug'] = $post->slug;
 
@@ -162,10 +166,32 @@ class PostController extends ArticleController
         $post->categories()->sync(
             $this->getCategories($request->input('categories'))->pluck('slug')->toArray()
         );
-
         $save_status = $post->wasRecentlyCreated && !$post->is_published ? 'created' : 'updated';
         return $this->responseFactory
             ->redirectToRoute('post.edit', $post->slug)
             ->with('save.status', $save_status);
+    }
+
+    private function getValidationRules(Post $post, Request $request)
+    {
+        if ($post->is_published || $request->input('isPublished') === 'yes') {
+            return [
+                'title'       => 'required|string|between:3,255',
+                'categories'  => 'string',
+                'template'    => 'required|string|template',
+                'description' => 'required|string|min:50',
+                'body'        => 'required|string|min:50',
+                'markdown'    => 'string'
+            ];
+        }
+
+        return [
+            'title'       => 'required|string|between:3,255',
+            'categories'  => 'string',
+            'template'    => 'required|string|template',
+            'description' => 'string|min:50',
+            'body'        => 'string|min:50',
+            'markdown'    => 'string'
+        ];
     }
 }
