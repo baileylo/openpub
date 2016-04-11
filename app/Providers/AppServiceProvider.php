@@ -6,21 +6,26 @@ use App\Services\Pagination\FoundationFourPresenter;
 use App\Services\Template\TemplateProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\ServiceProvider;
+use App\Validators;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
      *
-     * @return void
+     * @param Factory $validator
      */
-    public function boot()
+    public function boot(Factory $validator)
     {
         LengthAwarePaginator::presenter(function (Paginator $paginator) {
             return new FoundationFourPresenter($paginator);
         });
+
+        $validator->extend('template', Validators\Template::class . '@validate');
     }
 
     /**
