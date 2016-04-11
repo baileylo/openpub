@@ -58,6 +58,23 @@ class PostController extends ArticleController
         ]);
     }
 
+    public function feed()
+    {
+        $posts = Post::published(10)->get();
+        $last_updated = $posts->reduce(function ($carry, Post $post) {
+            $date = $post->updated_at ?: $post->published_at;
+            if (!$carry || $date > $carry) {
+                return $date;
+            }
+
+            return $carry;
+        }, null);
+
+        return $this->responseFactory->view('post.feed', ['posts' => $posts, 'last_updated' => $last_updated], 200, [
+            'Content-Type' => 'application/atom+xml; charset=UTF-8'
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

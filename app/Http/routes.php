@@ -29,5 +29,7 @@ Route::group(['middleware' => ['web']], function (Router $router) {
         $router->resource('page', 'PageController', ['except' => ['show']]);
     });
 
+    $router->get('feed', ['as' => 'feed', 'uses' => 'PostController@feed']);
+
     $router->get('{slug}', ['as' => 'resource', 'uses' => 'ResourceController@find']);
 });
