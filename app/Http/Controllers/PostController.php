@@ -54,7 +54,8 @@ class PostController extends ArticleController
         }
 
         return $this->responseFactory->view('post.list', [
-            'posts' => $category->posts()->published()->simplePaginate()
+            'category' => $category,
+            'posts'    => $category->posts()->published()->simplePaginate()
         ]);
     }
 

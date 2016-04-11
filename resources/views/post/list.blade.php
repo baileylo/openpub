@@ -1,11 +1,11 @@
 @extends('layouts.full')
 
-@section('title') @if(isset($category)) {{ $category->name }}@endif @stop
+@section('title')@if(isset($category)) {{ $category->name }} &mdash;@endif Logan Bailey @stop
 
 @section('content')
 
     @if(isset($category))
-        <h2>Posts Tagged With {{ $category->name }}</h2>
+        <h3>{{ $category->name }}</h3>
     @endif
 
     @foreach($posts as $post)
