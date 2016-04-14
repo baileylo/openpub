@@ -86,16 +86,17 @@ class PageController extends ArticleController
      */
     public function update(Request $request, CommonMarkConverter $converter, $slug)
     {
+        $page = $this->findBySlug($slug);
+
         $this->validate($request, [
             'title'       => 'required|string|between:3,255',
-            'slug'        => 'required|between:2,255,alpha_dash|unique:posts,slug',
+            'slug'        => "required|between:2,255,alpha_dash|unique:posts,slug,{$page->id}",
             'template'    => 'required|string|template',
             'description' => 'string|min:50',
             'body'        => 'string|min:50',
             'markdown'    => 'string'
         ]);
 
-        $page = $this->findBySlug($slug);
         $data = $request->only('slug', 'title', 'template', 'is_markdown', 'body', 'description');
         $page = $this->updateArticle($page, $converter, $data);
 
