@@ -17,6 +17,11 @@ class Page extends Article
      */
     protected $table = 'posts';
 
+    /**
+     * The model's attributes.
+     *
+     * @var array
+     */
     protected $attributes = ['type' => 'page'];
 
     /**
@@ -26,6 +31,11 @@ class Page extends Article
      */
     protected $fillable = ['title', 'slug', 'markdown', 'html', 'template'];
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();

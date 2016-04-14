@@ -13,13 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Article
 {
-    public static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope(new PostScope);
-    }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +23,25 @@ class Post extends Article
     ];
 
     /**
+     * The model's attributes.
+     *
+     * @var array
+     */
     protected $attributes = ['type' => 'post'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new PostScope);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function categories()

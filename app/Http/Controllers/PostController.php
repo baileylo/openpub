@@ -102,7 +102,6 @@ class PostController extends ArticleController
         /** @var Post $post */
         $post = $this->updateArticle(new Post, $converter, $postData + ['slug' => $slug]);
 
-
         if ($request->input('isPublished') === 'yes') {
             $post->published_at = new \DateTime('-5 seconds');
         }
