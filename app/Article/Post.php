@@ -30,6 +30,7 @@ class Post extends Article
     ];
 
     /**
+    protected $attributes = ['type' => 'post'];
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function categories()
