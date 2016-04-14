@@ -24,7 +24,8 @@ Route::group(['middleware' => ['web']], function (Router $router) {
 
     $router->group(['middleware' => ['auth']], function (Router $router) {
         $router->get('admin', ['as' => 'admin', 'uses' => 'PostController@overview']);
-        $router->get('settings', ['as' => 'settings', 'uses' => function () {return 'coming soon!';}]);
+        $router->get('settings', ['as' => 'settings', 'uses' => 'UserController@edit']);
+        $router->put('settings', ['uses' => 'UserController@update']);
         $router->resource('post', 'PostController', ['except' => ['show']]);
         $router->resource('page', 'PageController', ['except' => ['show']]);
     });
