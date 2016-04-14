@@ -1,82 +1,36 @@
 <?php
 
-Route::pattern('date', '\d{4}\/\d{2}\/\d{2}');
-Route::pattern('page', '[1-9]+[0-9]*');
+/*
+|--------------------------------------------------------------------------
+| Routes File
+|--------------------------------------------------------------------------
+|
+| Here is where you will register all of the routes in an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
 
-// Paginated Homepage
-Route::get('', ['uses' => 'Home\View@view', 'as' => 'home']);
-Route::get('page/{page}', ['uses' => 'Home\View@view', 'as' => 'home.paginated']);
+use Illuminate\Routing\Router;
 
-// Paginated Filtered Category Page
-Route::get('category/{category}', ['uses' => 'Post\Listings\CategoryView@category', 'as' => 'category']);
-Route::get('category/{category}/{page}', ['uses' => 'Post\Listings\CategoryView@category', 'as' => 'category.paginated']);
+Route::group(['middleware' => ['web']], function (Router $router) {
+    $router->get('', ['as' => 'home', 'uses' => 'PostController@index']);
 
-// Login Page
-Route::get('login', ['uses' => 'Auth\LoginView@view', 'before' => 'forceSSL']);
-Route::post('login', ['uses' => 'Auth\LoginHandler@handle', 'before' => 'forceSSL']);
+    $router->get('category/{category}', ['as' => 'category', 'uses' => 'PostController@category']);
 
-// Logout page
-Route::get('logout', ['uses' => 'Auth\LogoutHandler@logout', 'as' => 'logout']);
+    $router->get('login', ['as' => 'login', 'uses' => 'Auth\\AuthController@getLogin']);
+    $router->post('login', 'Auth\\AuthController@login');
+    $router->get('logout', ['as' => 'logout', 'uses' => 'Auth\\AuthController@logout']);
 
-Route::get('feed', [
-    'uses' => 'Feed\Atom@feed',
-    'before' => 'beforeAtomCache',
-    'after' => 'afterAtomCache',
-    'as' => 'feed.atom'
-]);
+    $router->group(['middleware' => ['auth']], function (Router $router) {
+        $router->get('admin', ['as' => 'admin', 'uses' => 'PostController@overview']);
+        $router->get('settings', ['as' => 'settings', 'uses' => 'UserController@edit']);
+        $router->put('settings', ['uses' => 'UserController@update']);
+        $router->resource('post', 'PostController', ['except' => ['show']]);
+        $router->resource('page', 'PageController', ['except' => ['show']]);
+    });
 
-Route::group(['middleware' => 'auth'], function () {
+    $router->get('feed', ['as' => 'feed', 'uses' => 'PostController@feed']);
 
-    Route::get('/import', ['uses' => 'Admin\ImportView@view', 'as' => 'import']);
-    Route::post('/import', ['uses' => 'Admin\ImportHandler@import']);
-
-    // Settings Routes
-    Route::get('/settings', ['uses' => 'User\Settings\SettingsView@view', 'as' => 'settings', 'before' => 'forceSSL']);
-
-    // Generic Admin Page
-    Route::get('/admin/', ['uses' => 'Admin\ListView@view', 'as' => 'admin']);
-    Route::get('/admin/{page}', ['uses' => 'Admin\ListView@view', 'as' => 'admin.paginated']);
-
-    Route::get('/admin/pages/', ['uses' => 'Page\View\ListView@view', 'as' => 'admin.pages']);
-    Route::get('/admin/pages/{page}', ['uses' => 'Page\View\ListView@view', 'as' => 'admin.pages.paginated']);
-
-    Route::get('/admin/posts/unpublished', ['uses' => 'Admin\ListUnpublishedPosts@view', 'as' => 'admin.unpublished']);
-    Route::get('/admin/posts/unpublished/{page}', ['uses' => 'Admin\ListUnpublishedPosts@view', 'as' => 'admin.unpublished.paginated']);
-
-    Route::get('/write', ['uses' => 'Post\Create\View@view', 'as' => 'admin.post.create']);
-    Route::get('/write/page', ['uses' => 'Page\Create\View@view', 'as' => 'admin.page.create']);
-
-    // Edit
-    Route::get('{slug}/edit', ['uses' => 'Resource\Edit@view', 'as' => 'page.edit']);
-    Route::get('{slug}/edit', ['uses' => 'Resource\Edit@view', 'as' => 'post.edit']);
-
-    // Delete Page Or Post
-    Route::delete('{slug}', ['uses' => 'Resource\Delete@delete', 'as' => 'page.delete']);
-    Route::delete('{slug}', ['uses' => 'Resource\Delete@delete', 'as' => 'post.delete']);
-
-    // Handle Edits to Page
-    Route::put('{slug}/edit', ['uses' => 'Resource\EditHandler@handle']);
-    Route::post('{slug}/edit', ['uses' => 'Resource\EditHandler@handle']);
-
-    // Create Page/Slug
-    Route::post('/write', ['uses' => 'Post\Create\CreatePostHandler@handle']);
-    Route::post('/write/page', ['uses' => 'Page\Create\Handler@handleForm', 'as' => 'admin.page.create']);
-
-    // Publish / Unpublish Page
-    Route::put('{slug}/publish', ['uses' => 'Resource\Publish@publish', 'as' => 'post.publish']);
-    Route::put('{slug}/publish', ['uses' => 'Resource\Publish@publish', 'as' => 'page.publish']);
-
-    Route::patch('{slug}/unpublish', ['uses' => 'Resource\Unpublish@unpublish', 'as' => 'post.unpublish']);
-    Route::patch('{slug}/unpublish', ['uses' => 'Resource\Unpublish@unpublish', 'as' => 'page.unpublish']);
-
-    Route::put('/settings', ['uses' => 'User\Settings\SettingsHandler@handleForm', 'before' => 'forceSSL']);
-    Route::put('/update-password', ['uses' => 'User\Settings\PasswordHandler@handleForm', 'as' => 'passwordHandler']);
+    $router->get('{slug}', ['as' => 'resource', 'uses' => 'ResourceController@find']);
 });
-
-Route::get('{date}/{slug}', ['before' => 'postUrlRedirect']);
-
-// View
-Route::get('{slug}', ['uses' => 'Resource\View@view', 'as' => 'page.permalink', 'before' => 'unpublishedResource|beforeResourceCache', 'after' => 'afterResourceCache']);
-Route::get('{slug}', ['uses' => 'Resource\View@view', 'as' => 'post.permalink', 'before' => 'unpublishedResource|beforeResourceCache', 'after' => 'afterResourceCache']);
-
-

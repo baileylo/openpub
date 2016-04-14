@@ -11,7 +11,7 @@
     <div class="button-bar">
         <ul class="header-button-group button-group">
             <li><a class="small button" href="{{ route('home') }}" title="Home">Home</a></li>
-            <li><a class="small button" href="{{ route('page.permalink', ['about-me']) }}" title="About Me">About Me</a></li>
+            <li><a class="small button" href="{{ route('resource', 'about-me') }}" title="About Me">About Me</a></li>
             <li class="nav-bar-item-logo">
                 <div class="nav-bar-logo-container">
                     <img src="/img/profile.png" width="125px"/>
@@ -28,7 +28,7 @@
             <h1>
                 <a href="{{ route('home') }}">
                     <img src="/img/profile.png" width="35px"/>
-                    {{{ $site->getTitle() }}}
+                    {{--{{{ $site->getTitle() }}}--}}
                 </a>
             </h1>
         </li>
@@ -57,9 +57,7 @@
             <!-- Left Nav Section -->
             <ul class="left">
                 <li><a href="{{ route('admin') }}">Admin</a></li>
-                <li><a href="{{ route('admin.pages') }}">Pages</a></li>
-                <li><a href="{{ route('admin.post.create') }}">Write Post</a></li>
-                <li><a href="{{ route('admin.page.create') }}">Create Page</a></li>
+                <li><a href="{{ route('post.create') }}">Write Post</a></li>
             </ul>
         @endif
     </section>
@@ -68,16 +66,16 @@
 @stop
 
 @section('footer')
-    @if ($site->getGAId())
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    {{--@if ($site->getGAId())--}}
+        {{--<script>--}}
+            {{--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){--}}
+                {{--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),--}}
+                    {{--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)--}}
+            {{--})(window,document,'script','//www.google-analytics.com/analytics.js','ga');--}}
 
-            ga('create', '{{ $site->getGAId() }}', 'auto');
-            ga('send', 'pageview');
+            {{--ga('create', '{{ $site->getGAId() }}', 'auto');--}}
+            {{--ga('send', 'pageview');--}}
 
-        </script>
-    @endif
+        {{--</script>--}}
+    {{--@endif--}}
 @stop

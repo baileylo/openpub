@@ -1,33 +1,32 @@
 @extends('layouts.full')
 
-@section('title')Login &mdash; {{ $site->getTitle() }} @stop
+@section('title', 'Login')
 
 @section('content')
-
-{!! Form::open() !!}
+<form method="POST">
+    {!! csrf_field() !!}
     <div class="row">
         <div class="columns large-6 medium-6 small-12 large-centered medium-centered small-centered">
             <div class="row">
                 <div class="columns large-3 medium-3 hidden-for-small-down">
-                    {!! Form::label('login', 'Login', ['class' => 'right inline']) !!}
+                    <label for="login" class="right inline">Login</label>
                 </div>
                 <div class="columns large-9 medium-9 small-12 ">
                     <label @if($errors->has('login')) class="error"@endif>
-                        {!! Form::text('login', null, ['placeholder' => 'Login', 'required' => true]) !!}
-                        @if ($errors->has('login'))
-                            <small class="error">{{ $errors->first('login') }}</small>
+                        <input type="text" id="login" name="email" placeholder="login" required="true" />
+                        @if ($errors->has('email'))
+                            <small class="error">{{ $errors->first('email') }}</small>
                         @endif
                     </label>
-
                 </div>
             </div>
             <div class="row">
                 <div class="columns large-3 medium-3 hidden-for-small-down">
-                    {!! Form::label('password', 'Password', ['class' => 'right inline']) !!}
+                    <label for="password" class="right inline">Password</label>
                 </div>
                 <div class="columns large-9 medium-9 small-12">
                     <label @if($errors->has('password')) class="error"@endif>
-                        {!! Form::password('password', ['placeholder' => 'Password', 'required' => true]) !!}
+                        <input type="password" name="password" id="password" placeholder="Password" required="true" />
                         @if ($errors->has('password'))
                             <small class="error">{{ $errors->first('password') }}</small>
                         @endif
@@ -39,5 +38,5 @@
             </div>
         </div>
     </div>
-{!! Form::close() !!}
+</form>
 @stop
