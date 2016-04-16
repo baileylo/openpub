@@ -6,8 +6,6 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
 
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
-
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
 </head>
 
@@ -30,6 +28,7 @@
     <script src="{{ elixir('js/app.js') }}"></script>
 
     @if (Auth::user())
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <script>
             $(document).foundation();
         </script>
