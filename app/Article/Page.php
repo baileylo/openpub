@@ -11,13 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Article
 {
     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'posts';
-
-    /**
      * The model's attributes.
      *
      * @var array
