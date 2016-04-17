@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <title>Uh oh</title>
+    <title>Page Not Found</title>
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
 </head>
