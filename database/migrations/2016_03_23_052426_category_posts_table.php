@@ -12,10 +12,10 @@ class CategoryPostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_post', function (Blueprint $table) {
+        Schema::create('category_article', function (Blueprint $table) {
             $table->string('category_id');
-            $table->integer('post_id')->unsigned();
-            $table->primary(['post_id', 'category_id']);
+            $table->integer('article_id')->unsigned();
+            $table->primary(['article_id', 'category_id']);
         });
     }
 
@@ -26,6 +26,6 @@ class CategoryPostsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('category_posts');
+        Schema::drop('category_article');
     }
 }

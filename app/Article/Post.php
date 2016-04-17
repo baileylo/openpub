@@ -46,7 +46,7 @@ class Post extends Article
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_article', 'article_id');
     }
 
     public function scopePublished($query)

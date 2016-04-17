@@ -10,3 +10,7 @@ Thumbs.db
 
 _ide_helper.php
 storage/debugbar/
+node_modules/
+public/build/
+public/css/
+public/js/

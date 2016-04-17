@@ -6,12 +6,7 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
 
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
-
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600italic,600,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/normalize.css"/>
-    <link rel="stylesheet" href="/css/foundation.css"/>
-    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
 </head>
 
 <body>
@@ -23,21 +18,21 @@
     </header>
 
     <section class="row">
-        <div class="columns large-9 large-centered">
+        <div class="columns large-10 large-centered">
             @yield('content')
         </div>
     </section>
 
     @yield('footer')
 
-    <script src="/js/vendor/jquery.js"></script>
-    <script src="/js/vendor/modernizr.js"></script>
-    <script src="/js/foundation.min.js"></script>
-    <script src="/js/foundation/foundation.topbar.js"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
 
-    <script>
-        $(document).foundation();
-    </script>
+    @if (Auth::user())
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <script>
+            $(document).foundation();
+        </script>
+    @endif
 
     @yield('js')
 </body>

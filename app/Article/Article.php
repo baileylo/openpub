@@ -26,7 +26,7 @@ abstract class Article extends Model
      *
      * @var string
      */
-    protected $table = 'posts';
+    protected $table = 'articles';
 
     /**
      * The attributes that should be hidden for arrays.

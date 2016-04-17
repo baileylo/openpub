@@ -26,7 +26,7 @@
 @stop
 
 @section('js')
-    <script src="/js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" href="/css/highlight/github.css"/>
+    <script src="{{ elixir('js/highlight.js') }}" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ elixir('css/highlight.css') }}"/>
     <script>hljs.initHighlightingOnLoad();</script>
 @stop

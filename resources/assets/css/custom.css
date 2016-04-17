@@ -8,8 +8,7 @@
 .nav-bar-logo-container {
     position: absolute;
     top: -66px;
-    left: 0px;
-
+    left: 0;
     z-index: 1;
 }
 
@@ -17,43 +16,33 @@
     margin-bottom: 30px;
 }
 
-.list-article .article-header {
-    font-weight: 600;
-}
-
-.list-article .article-content {
-    font-size: 1rem;
-    font-weight: 200;
-}
-
 .list-article .article-footer {
     font-size: 0.9rem;
     margin: 15px 0 20px;
 }
 
+.list-article .article-header,
 .view-article .article-header {
-    font-weight: 600;
+    font-weight: 400;
     font-size: 2rem;
 }
 
-.view-article .article-content {
-    font-size: 1rem;
-    font-weight: 200;
-}
-
+.list-article .article-content,
+.view-article .article-content,
 .view-article .article-content p,
 .view-article .article-content a {
     font-size: 1rem;
+    line-height: 2rem;
     font-weight: 200;
 }
 
 .view-article .article-footer {
     font-size: 0.9rem;
-    margin: 0px 0 20px;
+    margin: 0 0 20px;
 }
 
 *, h1, h2, h3, h4, h5, h6 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: Verdana, Geneva, sans-serif;
 }
 
 pre > code {
@@ -92,6 +81,10 @@ tfoot ul.pagination {
 .button-bar .button-group.header-button-group {
     text-align: center;
     float: none;
+}
+
+.button-group > li {
+    margin: 0 -3px;
 }
 
 .code-editor-wrapper {
