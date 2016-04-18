@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Article\Article;
 use App\Services\Template\TemplateProvider;
-
+use App\Services\Article as ArticleService;
 use App\Http\Requests;
+use Illuminate\Routing\ResponseFactory;
 use League\CommonMark\CommonMarkConverter;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -14,6 +15,36 @@ class ArticleController extends Controller
     protected $templates = [];
 
     protected $redirects = [];
+
+    /** @var ArticleService\Repository */
+    private $articleRepository;
+
+    public function __construct(ResponseFactory $responseFactory, ArticleService\Repository $articleRepository)
+    {
+        parent::__construct($responseFactory);
+        $this->articleRepository = $articleRepository;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($slug)
+    {
+        $article = $this->articleRepository->findBySlug($slug);
+        if (!$article) {
+            throw new NotFoundHttpException;
+        }
+
+        if (!$article->is_published && !\Auth::check()) {
+            throw new NotFoundHttpException;
+        }
+
+        return $this->responseFactory->view("post.templates.{$article->template}", [
+            'article' => $article
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,6 +58,19 @@ class ArticleController extends Controller
         return $this->responseFactory->view($this->templates['create'], [
             'templates' => $templateProvider->getTemplates()
         ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  string $post
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($post)
+    {
+        $this->findBySlug($post)->delete();
+
+        return $this->responseFactory->redirectToRoute($this->redirects['destroy']);
     }
 
     /**
@@ -62,19 +106,6 @@ class ArticleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($post)
-    {
-        $this->findBySlug($post)->delete();
-
-        return $this->responseFactory->redirectToRoute($this->redirects['destroy']);
-    }
-
-    /**
      * Find article by slug.
      *
      * @param string $slug
@@ -85,9 +116,13 @@ class ArticleController extends Controller
      */
     protected function findBySlug($slug, array $relationships = [])
     {
-        $article = Article::findBySlug($slug, $relationships);
+        $article = $this->articleRepository->findBySlug($slug);
         if (!$article) {
             throw new NotFoundHttpException();
+        }
+
+        if ($relationships) {
+            $article->load($relationships);
         }
 
         return $article;

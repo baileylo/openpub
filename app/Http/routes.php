@@ -34,5 +34,5 @@ Route::group(['middleware' => ['web']], function (Router $router) {
 
     $router->get('{date}/{slug}', 'RedirectController@wordPressRedirects')
         ->where('date', '\d{4}-\d{2}-\d{2}');
-    $router->get('{slug}', ['as' => 'resource', 'uses' => 'ResourceController@find']);
+    $router->get('{slug}', ['as' => 'resource', 'uses' => 'ArticleController@find']);
 });
