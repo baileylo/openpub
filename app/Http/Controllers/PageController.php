@@ -42,7 +42,7 @@ class PageController extends ArticleController
     {
         $this->validate($request, [
             'title'       => 'required|string|between:3,255',
-            'slug'        => 'required|between:2,255,alpha_dash|unique:posts,slug',
+            'slug'        => 'required|between:2,255,alpha_dash|unique:articles,slug',
             'template'    => 'required|string|template',
             'description' => 'string|min:50',
             'body'        => 'string|min:50',
@@ -90,7 +90,7 @@ class PageController extends ArticleController
 
         $this->validate($request, [
             'title'       => 'required|string|between:3,255',
-            'slug'        => "required|between:2,255,alpha_dash|unique:posts,slug,{$page->id}",
+            'slug'        => "required|between:2,255,alpha_dash|unique:articles,slug,{$page->id}",
             'template'    => 'required|string|template',
             'description' => 'string|min:50',
             'body'        => 'string|min:50',
