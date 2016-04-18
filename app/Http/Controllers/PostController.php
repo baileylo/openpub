@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Article\Post;
-use App\Services\Category;
+use App\Category;
+use App\Services\Category as CategoryService;
 use App\Services\Template\TemplateProvider;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -44,7 +45,7 @@ class PostController extends ArticleController
         ]);
     }
 
-    public function category(Category\Repository $repository, $slug)
+    public function category(CategoryService\Repository $repository, $slug)
     {
         $category = $repository->findBySlug($slug);
         if (!$category) {
