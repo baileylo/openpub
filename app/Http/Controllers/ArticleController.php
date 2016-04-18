@@ -40,6 +40,19 @@ class ArticleController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  string $post
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($post)
+    {
+        $this->findBySlug($post)->delete();
+
+        return $this->responseFactory->redirectToRoute($this->redirects['destroy']);
+    }
+
+    /**
      * @param Article             $article   The article it populate
      * @param CommonMarkConverter $converter Library used to convert markdown to HTML
      * @param array               $data      Request that contains the data
@@ -69,19 +82,6 @@ class ArticleController extends Controller
         }
 
         return $article;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($post)
-    {
-        $this->findBySlug($post)->delete();
-
-        return $this->responseFactory->redirectToRoute($this->redirects['destroy']);
     }
 
     /**
