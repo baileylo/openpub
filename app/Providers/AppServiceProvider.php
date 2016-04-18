@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Article\Page;
+use App\Article\Post;
 use App\Services\Article;
 use App\Services\Category;
 use App\Services\Pagination\FoundationFourPresenter;
@@ -26,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         LengthAwarePaginator::presenter(function (Paginator $paginator) {
             return new FoundationFourPresenter($paginator);
         });
+
+        Post::observe($this->app[Article\Events\Post::class]);
+        Page::observe($this->app[Article\Events\Page::class]);
 
         $validator->extend('template', Validators\Template::class . '@validate');
     }

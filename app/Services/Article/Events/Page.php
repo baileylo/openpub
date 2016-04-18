@@ -2,7 +2,7 @@
 
 namespace App\Services\Article\Events;
 
-class Page
+class Page extends Observer
 {
 
 }
