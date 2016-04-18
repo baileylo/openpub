@@ -2,6 +2,7 @@
 
 namespace App\Services\Article\Repository;
 
+use App\Services\Article\CacheKeyChain;
 use App\Services\Article\Repository;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
 
@@ -21,7 +22,8 @@ class Cache implements Repository
 
     public function findBySlug($slug)
     {
-        return $this->cache->sear("article:slug:[categories]:{$slug}", function() use ($slug) {
+        $cache_key = CacheKeyChain::get('full', $slug);
+        return $this->cache->sear($cache_key, function() use ($slug) {
             return $this->repository->findBySlug($slug);
         });
     }
