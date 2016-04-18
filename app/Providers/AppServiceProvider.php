@@ -6,14 +6,13 @@ use App\Services\Article;
 use App\Services\Category;
 use App\Services\Pagination\FoundationFourPresenter;
 use App\Services\Template\TemplateProvider;
+use App\Validators;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Validation\Factory;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\ServiceProvider;
-use App\Validators;
 
 class AppServiceProvider extends ServiceProvider
 {
