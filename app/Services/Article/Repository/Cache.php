@@ -21,7 +21,7 @@ class Cache implements Repository
 
     public function findBySlug($slug)
     {
-        return $this->cache->sear("article:slug:{$slug}", function() use ($slug) {
+        return $this->cache->sear("article:slug:[categories]:{$slug}", function() use ($slug) {
             return $this->repository->findBySlug($slug);
         });
     }
