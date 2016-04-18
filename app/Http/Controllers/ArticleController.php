@@ -26,6 +26,27 @@ class ArticleController extends Controller
     }
 
     /**
+     * @param string $slug
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($slug)
+    {
+        $article = $this->articleRepository->findBySlug($slug);
+        if (!$article) {
+            throw new NotFoundHttpException;
+        }
+
+        if (!$article->is_published && !\Auth::check()) {
+            throw new NotFoundHttpException;
+        }
+
+        return $this->responseFactory->view("post.templates.{$article->template}", [
+            'article' => $article
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @param TemplateProvider $templateProvider

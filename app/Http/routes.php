@@ -32,5 +32,5 @@ Route::group(['middleware' => ['web']], function (Router $router) {
 
     $router->get('feed', ['as' => 'feed', 'uses' => 'PostController@feed']);
 
-    $router->get('{slug}', ['as' => 'resource', 'uses' => 'ResourceController@find']);
+    $router->get('{slug}', ['as' => 'resource', 'uses' => 'ArticleController@show']);
 });
