@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Services\Article;
+use App\Services\Category;
 use App\Services\Pagination\FoundationFourPresenter;
 use App\Services\Template\TemplateProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
@@ -44,6 +47,20 @@ class AppServiceProvider extends ServiceProvider
             return $this->app->build(TemplateProvider::class, [
                 'templateDirectory' => resource_path('views/post/templates')
             ]);
+        });
+
+        $this->app->bind(Article\Repository::class, function ($app) {
+            return new Article\Repository\Cache(
+                $app[Article\Repository\Eloquent::class],
+                $app[Repository::class]
+            );
+        });
+
+        $this->app->bind(Category\Repository::class, function ($app) {
+            return new Category\Repository\Cache(
+                $app[Category\Repository\Eloquent::class],
+                $app[Repository::class]
+            );
         });
     }
 }
