@@ -12,13 +12,15 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.scripts(['/highlight.pack.js'], 'public/js/highlight.js')
-        .scripts(['/vendor/jquery.js', '/vendor/modernizr.js', '/foundation.min.js', '/foundation/foundation.topbar.js'], 'public/js/app.js');
+    mix
+        .sass('app.scss')
+        .styles(['highlight/github.css'], 'public/css/highlight.css')
+        .scripts('highlight.pack.js', 'public/js/highlight.js')
+        .scripts(['bootstrap.js', 'bootstrap-sprockets.js'], 'public/js/admin.js')
+        .version(['js/admin.js', 'css/app.css', 'js/highlight.js', 'css/highlight.css']);
 
-
-
-    mix.styles(['normalize.css', 'foundation.css', 'custom.css'], 'public/css/app.css')
-        .styles(['highlight/github.css'], 'public/css/highlight.css');
-
-    mix.version(['js/app.js', 'js/highlight.js', 'css/app.css', 'css/highlight.css']);
+    //mix.styles(['normalize.css', 'foundation.css', 'custom.css'], 'public/css/app.css')
+    //    .styles(['highlight/github.css'], 'public/css/highlight.css');
+    //
+    //mix.version(['js/app.js', 'js/highlight.js', 'css/app.css', 'css/highlight.css']);
 });

@@ -1,2 +1,49 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+
+$font-family-sans-serif:  Verdana, Geneva, sans-serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   'Courier New', Courier, monospace !default;
+
+@import "bootstrap";
+
+.masthead {
+  background-color: $body-bg;
+}
+
+.masthead > .row {
+  margin: ($line-height-computed * 2) 0;
+}
+
+body {
+  background-color: #FFF;
+}
+
+.view-article,
+.list-article {
+  color: $body-bg;
+  font-size: $font-size-large;
+}
+
+.list-article {
+  margin-bottom: 45px;
+}
+
+.view-article .page-header {
+  padding-bottom: 2px;
+}
+
+.view-article h1.article-header {
+  font-size: floor($font-size-h1 * .8);
+}
+
+.view-article h1 small {
+  display: block;
+  font-size: $font-size-h6;
+  margin-top: 15px;
+  color: $gray-light;
+}
+
+.article-content {
+  line-height: ($font-size-large * 1.75);
+}

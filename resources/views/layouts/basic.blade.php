@@ -13,26 +13,28 @@
 
     @yield('tophat')
 
-    <header class="row" id="page-header">
+    <header class="container-fluid masthead">
         @yield('header')
     </header>
 
-    <section class="row">
-        <div class="columns large-10 large-centered">
-            @yield('content')
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                @yield('content')
+            </div>
         </div>
     </section>
 
     @yield('footer')
 
-    <script src="{{ elixir('js/app.js') }}"></script>
+    {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
 
-    @if (Auth::user())
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <script>
-            $(document).foundation();
-        </script>
-    @endif
+    {{--@if (Auth::user())--}}
+        {{--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">--}}
+        {{--<script>--}}
+            {{--$(document).foundation();--}}
+        {{--</script>--}}
+    {{--@endif--}}
 
     @yield('js')
 </body>
