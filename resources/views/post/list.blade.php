@@ -6,7 +6,9 @@
 
     @if(isset($category))
         <div class="page-header">
-            <h3> {{ $category->name }}</h3>
+            <h1 class="page-title">
+                {{ $category->name }}
+            </h1>
         </div>
     @endif
 
@@ -20,5 +22,6 @@
             </div>
         </article>
     @endforeach
+
     {!! $posts->links() !!}
 @stop
