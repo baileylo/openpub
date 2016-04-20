@@ -24,6 +24,17 @@
 @stop
 
 @section('footer')
+    <div class="row">
+        <div class="col-xs-12 col-md-2 col-md-push-5">
+            <div class="footer-content">
+                <ul class="list-unstyled">
+                    <li class="heading">Follow Me</li>
+                    <li><a href="https://twitter.com/baileylo" target="_blank">Twitter</li>
+                    <li><a href="https://github.com/baileylo" target="_blank">GitHub</li>
+                </ul>
+            </div>
+        </div>
+    </div>
     {{--@if ($site->getGAId())--}}
         {{--<script>--}}
             {{--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){--}}

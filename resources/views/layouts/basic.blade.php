@@ -25,7 +25,9 @@
         </div>
     </section>
 
-    @yield('footer')
+    <footer class="container-fluid footer">
+        @yield('footer')
+    </footer>
 
     {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
 
