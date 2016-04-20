@@ -15,22 +15,12 @@ $font-family-monospace:   'Courier New', Courier, monospace !default;
   margin: ($line-height-computed * 2) 0;
 }
 
-body {
+.page-content {
   background-color: #FFF;
-}
-
-.view-article,
-.list-article {
   color: $body-bg;
   font-size: $font-size-large;
-}
-
-.list-article {
-  margin-bottom: 45px;
-}
-
-.view-article .page-header {
-  padding-bottom: 2px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .page-header h1 {

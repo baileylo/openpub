@@ -17,7 +17,7 @@
         @yield('header')
     </header>
 
-    <section class="container">
+    <section class="container-fluid page-content">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
                 @yield('content')
