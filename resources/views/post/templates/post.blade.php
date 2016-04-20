@@ -17,8 +17,6 @@
             </h1>
         </div>
 
-
-
         <div class="article-content">
             {!! $article->html !!}
         </div>

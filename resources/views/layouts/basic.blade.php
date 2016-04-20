@@ -7,6 +7,7 @@
 
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
+    <link href='//fonts.googleapis.com/css?family=Gill+Sans' rel='stylesheet' type='text/css'>
 </head>
 
 <body>

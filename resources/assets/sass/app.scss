@@ -1,7 +1,7 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 
-$font-family-sans-serif:  Verdana, Geneva, sans-serif !default;
+$font-family-sans-serif:  'Gill Sans', 'Open Sans', sans-serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   'Courier New', Courier, monospace !default;
 
@@ -45,11 +45,11 @@ $font-family-monospace:   'Courier New', Courier, monospace !default;
   }
 }
 
-
 .page-content {
   background-color: #FFF;
   color: $body-bg;
   font-size: $font-size-large;
+  font-weight: 300;
   padding-top: 15px;
   padding-bottom: 15px;
 }
