@@ -33,11 +33,11 @@ body {
   padding-bottom: 2px;
 }
 
-.view-article h1.article-header {
+.page-header h1 {
   font-size: floor($font-size-h1 * .8);
 }
 
-.view-article h1 small {
+.page-header small {
   display: block;
   font-size: $font-size-h6;
   margin-top: 15px;

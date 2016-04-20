@@ -5,7 +5,7 @@
 @section('content')
     <article class="view-article">
         <div class="page-header">
-            <h1 class="article-header">
+            <h1>
                 {{ $article->title }}
                 <small>
                     @if ($article->published_at)

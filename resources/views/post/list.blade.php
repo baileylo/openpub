@@ -6,9 +6,7 @@
 
     @if(isset($category))
         <div class="page-header">
-            <h1 class="page-title">
-                {{ $category->name }}
-            </h1>
+            <h1>{{ $category->name }}</h1>
         </div>
     @endif
 
