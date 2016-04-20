@@ -11,9 +11,40 @@ $font-family-monospace:   'Courier New', Courier, monospace !default;
   background-color: $body-bg;
 }
 
-.masthead > .row {
+.masthead h1 {
+  font-size: floor($font-size-h1 * .65);
+}
+
+.masthead .default-view {
   margin: ($line-height-computed * 2) 0;
 }
+
+.masthead .mobile-view {
+  margin: 5px 0;
+}
+
+.masthead .mobile-view a{
+  text-decoration: none;
+  color: #FFF;
+}
+
+.masthead .mobile-view a:hover {
+  text-decoration: none;
+}
+
+.masthead .mobile-view h1 {
+  font-size: 14px;
+  margin: 0 0 0 5px;
+  display: inline-block;
+}
+
+/* Small & Medium Devices */
+@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+  .masthead .image-wrapper {
+      margin-right: 15px;
+  }
+}
+
 
 .page-content {
   background-color: #FFF;
@@ -21,6 +52,10 @@ $font-family-monospace:   'Courier New', Courier, monospace !default;
   font-size: $font-size-large;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.page-header {
+  margin: 21px 0;
 }
 
 .page-header h1 {
