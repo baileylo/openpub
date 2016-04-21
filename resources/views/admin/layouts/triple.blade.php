@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
+extends('admin.layouts.base')
+
+@section('head')
     <meta charset="UTF-8">
-    <title>@yield('title')</title>
+    <title>@yield('title', 'Admin')</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
 
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
     <link href='//fonts.googleapis.com/css?family=Gill+Sans' rel='stylesheet' type='text/css'>
-</head>
+@endsection
 
-<body>
-
-    @yield('tophat')
-
+@section('body')
     <header class="container-fluid masthead">
         @yield('header')
     </header>
@@ -30,8 +27,5 @@
         @yield('footer')
     </footer>
 
-    {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
     @yield('js')
-</body>
-
-</html>
+@endsection

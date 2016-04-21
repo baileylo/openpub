@@ -22,17 +22,15 @@ Route::group(['middleware' => ['web']], function (Router $router) {
     $router->post('login', 'Auth\\AuthController@login');
     $router->get('logout', ['as' => 'logout', 'uses' => 'Auth\\AuthController@logout']);
 
-    $router->group(['middleware' => ['auth']], function (Router $router) {
-        $router->get('admin', ['as' => 'admin', 'uses' => 'PostController@overview']);
-        $router->get('settings', ['as' => 'settings', 'uses' => 'UserController@edit']);
-        $router->put('settings', ['uses' => 'UserController@update']);
-        $router->resource('post', 'PostController', ['except' => ['show']]);
-        $router->resource('page', 'PageController', ['except' => ['show']]);
-    });
-
     $router->get('feed', ['as' => 'feed', 'uses' => 'PostController@feed']);
 
     $router->get('{date}/{slug}', 'RedirectController@wordPressRedirects')
         ->where('date', '\d{4}-\d{2}-\d{2}');
     $router->get('{slug}', ['as' => 'resource', 'uses' => 'ArticleController@show']);
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function (Router $router) {
+    $router->get('admin', ['as' => 'admin', 'uses' => 'PostController@overview']);
+    $router->get('settings', ['as' => 'settings', 'uses' => 'UserController@edit']);
+    $router->put('settings', ['uses' => 'UserController@update']);
 });
