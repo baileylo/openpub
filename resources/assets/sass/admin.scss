@@ -1,0 +1,56 @@
+@import "bootstrap";
+
+.sidebar {
+  padding: 0;
+}
+
+.sidebar .nav {
+  width: 100%;
+  font-size: $font-size-small;
+}
+
+.sidebar .nav a:hover,
+.sidebar .nav a.active {
+  color: $gray-lighter;
+}
+
+.sidebar .nav a {
+  color: $gray-muted;
+}
+
+.sidebar .nav a > i {
+  margin-right: 5px;
+}
+
+.sidebar .nav  li {
+  border-bottom: 1px solid $gray-light;
+  margin: 0;
+}
+
+.sidebar .sub-nav {
+  border-top: 1px solid $gray-light;
+}
+
+.sidebar .sub-nav a {
+  padding-left: 38px;
+}
+
+.sidebar .sub-nav li:last-child {
+  border-bottom: 0;
+}
+
+.topbar {
+  font-size: $font-size-small;
+  padding: 20px 0;
+  border-bottom: 1px solid $gray-lighter;
+}
+
+.sidebar-header {
+  border-bottom: 1px solid #fff;
+}
+
+.main-content {
+  background-color: #FFF;
+  color: $body-bg;
+  font-size: $font-size-large;
+}
