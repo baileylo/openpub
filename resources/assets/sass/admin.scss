@@ -1,12 +1,52 @@
+$text-color: #2B3E50 !default;
+
 @import "bootstrap";
+
+.breadcrumb,
+.main-content,
+.panel,
+.well {
+  background-color: #FFF;
+  color: $body-bg;
+}
+
+.breadcrumb {
+  font-size: $font-size-small;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.page-header {
+  margin-top: 21px;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+.admin-article-list.table > tbody > tr > td {
+  vertical-align: middle;
+  border-bottom: 2px solid $gray-lighter;
+  border-top: 0;
+  padding: 10px 0;
+}
+
+.admin-article-list.table > tbody > tr > td:first-child {
+  padding-left: 5px;
+}
+
+.admin-article-list.table > tbody > tr > td:last-child {
+  text-align: right;
+  padding-right: 5px;
+}
 
 .sidebar {
   padding: 0;
+  color: #FFF;
 }
 
 .sidebar .nav {
   width: 100%;
-  font-size: $font-size-small;
 }
 
 .sidebar .nav a:hover,
@@ -50,7 +90,18 @@
 }
 
 .main-content {
-  background-color: #FFF;
-  color: $body-bg;
-  font-size: $font-size-large;
+  padding-bottom: 15px;
+}
+
+//.main-content .help-block {
+//  color: $gray-muted;
+//}
+
+.form-inverse .form-control {
+  border-color: $gray-lighter;
+}
+
+.form-inverse .form-control:focus {
+  box-shadow: none;
+  border: 1px solid $brand-primary;
 }

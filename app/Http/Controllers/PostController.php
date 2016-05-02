@@ -145,7 +145,7 @@ class PostController extends ArticleController
      */
     public function edit(TemplateProvider $template, $post)
     {
-        return $this->responseFactory->view('post.edit', [
+        return $this->responseFactory->view('admin.posts.edit', [
             'post'      => $this->findBySlug($post, ['categories']),
             'status'    => session('save.status', false),
             'templates' => $template->getTemplates()
@@ -182,9 +182,10 @@ class PostController extends ArticleController
         $post->categories()->sync(
             $this->getCategories($request->input('categories'))->pluck('slug')->toArray()
         );
+
         $save_status = $post->wasRecentlyCreated && !$post->is_published ? 'created' : 'updated';
         return $this->responseFactory
-            ->redirectToRoute('post.edit', $post->slug)
+            ->redirectToRoute('admin.post.edit', $post->slug)
             ->with('save.status', $save_status);
     }
 

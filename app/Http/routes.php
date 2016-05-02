@@ -13,6 +13,12 @@
 
 use Illuminate\Routing\Router;
 
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function (Router $router) {
+    $router->get('', ['as' => 'admin', 'uses' => 'PostController@overview']);
+    $router->get('', ['as' => 'admin.post', 'uses' => 'PostController@overview']);
+    $router->resource('post', 'PostController', ['except' => ['show']]);
+});
+
 Route::group(['middleware' => ['web']], function (Router $router) {
     $router->get('', ['as' => 'home', 'uses' => 'PostController@index']);
 

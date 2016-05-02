@@ -12,7 +12,7 @@
             </a>
             <ul class="sub-nav nav nav-stacked">
                 <li><a href="#">Pages</a></li>
-                <li><a href="#">Posts</a></li>
+                <li><a href="{{ route('admin.post') }}" @if(Request::fullUrlIs(route('admin.post'))) class="active" @endif>Posts</a></li>
             </ul>
         </li>
         <li><a href="#">Media</a></li>
