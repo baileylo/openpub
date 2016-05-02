@@ -39,9 +39,8 @@ class PostController extends ArticleController
      */
     public function overview()
     {
-        return $this->responseFactory->view('post.overview', [
-            'published' => Post::published()->paginate(25),
-            'pending'   => Post::unpublished()->limit(25)->get(),
+        return $this->responseFactory->view('admin.home', [
+            'posts' => Post::orderBy('id', 'desc')->paginate(10)
         ]);
     }
 
