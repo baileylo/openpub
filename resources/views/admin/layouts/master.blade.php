@@ -27,7 +27,19 @@
                 </div>
 
                 <div class="row">
-                    @yield('content')
+                    <section class="col-lg-12">
+                        <div class="row">
+                            <header class="col-lg-12 page-header">
+                                @yield('content-header')
+                            </header>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

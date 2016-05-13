@@ -14,13 +14,17 @@
 use Illuminate\Routing\Router;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function (Router $router) {
-    $router->get('', ['as' => 'admin', 'uses' => 'PostController@overview']);
-    $router->get('', ['as' => 'admin.post', 'uses' => 'PostController@overview']);
+    $router->get('', ['as' => 'admin', 'uses' => 'PostController@index']);
+
+    $router->get('settings', ['as' => 'admin.settings', 'uses' => 'UserController@edit']);
+    $router->put('settings', 'UserController@update');
+
     $router->resource('post', 'PostController', ['except' => ['show']]);
+    $router->resource('page', 'PageController', ['except' => ['show']]);
 });
 
 Route::group(['middleware' => ['web']], function (Router $router) {
-    $router->get('', ['as' => 'home', 'uses' => 'PostController@index']);
+    $router->get('', ['as' => 'home', 'uses' => 'PostController@overview']);
 
     $router->get('category/{category}', ['as' => 'category', 'uses' => 'PostController@category']);
 
@@ -33,10 +37,4 @@ Route::group(['middleware' => ['web']], function (Router $router) {
     $router->get('{date}/{slug}', 'RedirectController@wordPressRedirects')
         ->where('date', '\d{4}-\d{2}-\d{2}');
     $router->get('{slug}', ['as' => 'resource', 'uses' => 'ArticleController@show']);
-});
-
-Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function (Router $router) {
-    $router->get('admin', ['as' => 'admin', 'uses' => 'PostController@overview']);
-    $router->get('settings', ['as' => 'settings', 'uses' => 'UserController@edit']);
-    $router->put('settings', ['uses' => 'UserController@update']);
 });

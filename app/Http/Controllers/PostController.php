@@ -15,11 +15,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PostController extends ArticleController
 {
     protected $templates = [
-        'create' => 'post.create'
+        'create' => 'admin.posts.create'
     ];
 
     protected $redirects = [
-        'destroy' => 'admin'
+        'destroy' => 'admin.post.index'
     ];
 
     /**
@@ -29,8 +29,8 @@ class PostController extends ArticleController
      */
     public function index()
     {
-        return $this->responseFactory->view('post.list', [
-            'posts' => Post::published()->simplePaginate(25)
+        return $this->responseFactory->view('admin.posts.list', [
+            'posts' => Post::orderBy('id', 'desc')->paginate(10)
         ]);
     }
 
@@ -39,8 +39,8 @@ class PostController extends ArticleController
      */
     public function overview()
     {
-        return $this->responseFactory->view('admin.home', [
-            'posts' => Post::orderBy('id', 'desc')->paginate(10)
+        return $this->responseFactory->view('post.list', [
+            'posts' => Post::published()->simplePaginate(25)
         ]);
     }
 
@@ -110,7 +110,9 @@ class PostController extends ArticleController
             $this->getCategories($request->input('categories'))
         );
 
-        return $this->responseFactory->redirectToRoute('resource', $post->slug);
+        return $this->responseFactory
+            ->redirectToRoute('admin.post.edit', $post->slug)
+            ->with('save.status', 'Created');
     }
 
     private function getCategories($categories)

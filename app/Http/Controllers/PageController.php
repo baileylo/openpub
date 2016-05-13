@@ -11,11 +11,11 @@ use League\CommonMark\CommonMarkConverter;
 class PageController extends ArticleController
 {
     protected $templates = [
-        'create' => 'pages.create'
+        'create' => 'admin.pages.create'
     ];
 
     protected $redirects = [
-        'destroy' => 'page.index'
+        'destroy' => 'admin.page.index'
     ];
 
     /**
@@ -25,7 +25,7 @@ class PageController extends ArticleController
      */
     public function index()
     {
-        return $this->responseFactory->view('pages.index', [
+        return $this->responseFactory->view('admin.pages.list', [
             'pages' => Page::paginate()
         ]);
     }
@@ -54,7 +54,7 @@ class PageController extends ArticleController
 
         $page->save();
 
-        return $this->responseFactory->redirectToRoute('page.edit', $page->slug)
+        return $this->responseFactory->redirectToRoute('admin.page.edit', $page->slug)
             ->with('save.status', 'created');
     }
 
@@ -68,7 +68,7 @@ class PageController extends ArticleController
      */
     public function edit(TemplateProvider $templateProvider, $slug)
     {
-        return $this->responseFactory->view('pages.edit', [
+        return $this->responseFactory->view('admin.pages.edit', [
             'page'      => $this->findBySlug($slug),
             'status'    => session('save.status', false),
             'templates' => $templateProvider->getTemplates()

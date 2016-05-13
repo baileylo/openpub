@@ -11,11 +11,11 @@
                 <i class="fa fa-caret-down arrow" aria-hidden="true" style="float: right"></i>
             </a>
             <ul class="sub-nav nav nav-stacked">
-                <li><a href="#">Pages</a></li>
-                <li><a href="{{ route('admin.post') }}" @if(Request::fullUrlIs(route('admin.post'))) class="active" @endif>Posts</a></li>
+                <li><a href="{{ route('admin.page.index') }}" @if(Request::is('admin/page*')) class="active" @endif>Pages</a></li>
+                <li><a href="{{ route('admin.post.index') }}" @if(Request::is('admin/post*')) class="active" @endif>Posts</a></li>
             </ul>
         </li>
         <li><a href="#">Media</a></li>
-        <li><a href="#">Account Settings</a></li>
+        <li><a href="{{ route('admin.settings') }}" @if(Request::is('admin/settings*')) class="active" @endif>Account Settings</a></li>
     </ul>
 </nav>
