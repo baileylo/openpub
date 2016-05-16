@@ -25,10 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Factory $validator)
     {
-        LengthAwarePaginator::presenter(function (Paginator $paginator) {
-            return new FoundationFourPresenter($paginator);
-        });
-
         Post::observe($this->app[Article\Events\Post::class]);
         Page::observe($this->app[Article\Events\Page::class]);
 
@@ -44,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment('local')) {
             $this->app->register(IdeHelperServiceProvider::class);
-            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+//            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
 
         $this->app->bind(TemplateProvider::class, function () {

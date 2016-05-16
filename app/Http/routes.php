@@ -13,22 +13,24 @@
 
 use Illuminate\Routing\Router;
 
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function (Router $router) {
+    $router->get('', ['as' => 'admin', 'uses' => 'PostController@index']);
+
+    $router->get('settings', ['as' => 'admin.settings', 'uses' => 'UserController@edit']);
+    $router->put('settings', 'UserController@update');
+
+    $router->resource('post', 'PostController', ['except' => ['show']]);
+    $router->resource('page', 'PageController', ['except' => ['show']]);
+});
+
 Route::group(['middleware' => ['web']], function (Router $router) {
-    $router->get('', ['as' => 'home', 'uses' => 'PostController@index']);
+    $router->get('', ['as' => 'home', 'uses' => 'PostController@overview']);
 
     $router->get('category/{category}', ['as' => 'category', 'uses' => 'PostController@category']);
 
     $router->get('login', ['as' => 'login', 'uses' => 'Auth\\AuthController@getLogin']);
     $router->post('login', 'Auth\\AuthController@login');
     $router->get('logout', ['as' => 'logout', 'uses' => 'Auth\\AuthController@logout']);
-
-    $router->group(['middleware' => ['auth']], function (Router $router) {
-        $router->get('admin', ['as' => 'admin', 'uses' => 'PostController@overview']);
-        $router->get('settings', ['as' => 'settings', 'uses' => 'UserController@edit']);
-        $router->put('settings', ['uses' => 'UserController@update']);
-        $router->resource('post', 'PostController', ['except' => ['show']]);
-        $router->resource('page', 'PageController', ['except' => ['show']]);
-    });
 
     $router->get('feed', ['as' => 'feed', 'uses' => 'PostController@feed']);
 

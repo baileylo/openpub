@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-    protected $loginView = 'auth.login';
+    protected $loginView = 'admin.auth.login';
 
     /*
     |--------------------------------------------------------------------------
@@ -33,20 +33,22 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin';
 
     protected $redirectAfterLogout = '';
 
     /**
      * Create a new authentication controller instance.
      *
-     * @return void
+     * @param ResponseFactory $responseFactory
+     * @param UrlGenerator    $urlGenerator
      */
     public function __construct(ResponseFactory $responseFactory, UrlGenerator $urlGenerator)
     {
         parent::__construct($responseFactory);
 
         $this->redirectAfterLogout = $urlGenerator->route('home');
+        $this->redirectTo          = $urlGenerator->route('admin.post.index');
 
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
