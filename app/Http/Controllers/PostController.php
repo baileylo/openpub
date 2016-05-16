@@ -27,10 +27,22 @@ class PostController extends ArticleController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search_term = $request->input('search');
+        if (!$search_term) {
+            return $this->responseFactory->view('admin.posts.list', [
+                'posts' => Post::orderBy('id', 'desc')->paginate(10)
+            ]);
+        }
+
+        $posts = Post::where('title', 'like', "%{$search_term}%")
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
         return $this->responseFactory->view('admin.posts.list', [
-            'posts' => Post::orderBy('id', 'desc')->paginate(10)
+            'posts'       => $posts,
+            'search_term' => $search_term
         ]);
     }
 
