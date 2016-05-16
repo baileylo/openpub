@@ -60,16 +60,6 @@
     </div>
 </section>
 
-
-<script src="{{ elixir('js/app.js') }}"></script>
-
-@if (Auth::user())
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        $(document).foundation();
-    </script>
-@endif
-
 </body>
 
 </html>

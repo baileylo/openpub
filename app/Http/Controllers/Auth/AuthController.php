@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-    protected $loginView = 'auth.login';
+    protected $loginView = 'admin.auth.login';
 
     /*
     |--------------------------------------------------------------------------

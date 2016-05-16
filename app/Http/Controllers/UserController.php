@@ -10,7 +10,10 @@ class UserController extends Controller
 {
     public function edit(Authenticatable $user)
     {
-        return $this->responseFactory->view('users.settings', ['user' => $user]);
+        return $this->responseFactory->view('admin.users.settings', [
+            'user'   => $user,
+            'status' => session('save.status', false)
+        ]);
     }
 
     public function update(Request $request)
@@ -33,6 +36,7 @@ class UserController extends Controller
 
         Auth::guard()->login($user);
 
-        return $this->responseFactory->redirectToRoute('settings');
+        return $this->responseFactory->redirectToRoute('admin.settings')
+            ->with(['save.status' => 'updated']);
     }
 }

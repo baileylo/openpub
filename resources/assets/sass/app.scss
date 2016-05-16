@@ -1,2 +1,84 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+
+$font-family-sans-serif:  'Gill Sans', 'Open Sans', sans-serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   'Courier New', Courier, monospace !default;
+
+@import "bootstrap";
+
+.masthead {
+  background-color: $body-bg;
+}
+
+.masthead h1 {
+  font-size: floor($font-size-h1 * .65);
+}
+
+.masthead .default-view {
+  margin: ($line-height-computed * 2) 0;
+}
+
+.masthead .mobile-view {
+  margin: 5px 0;
+}
+
+.masthead .mobile-view a{
+  text-decoration: none;
+  color: #FFF;
+}
+
+.masthead .mobile-view a:hover {
+  text-decoration: none;
+}
+
+.masthead .mobile-view h1 {
+  font-size: 14px;
+  margin: 0 0 0 5px;
+  display: inline-block;
+}
+
+/* Small & Medium Devices */
+@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+  .masthead .image-wrapper {
+      margin-right: 15px;
+  }
+}
+
+.page-content {
+  background-color: #FFF;
+  color: $body-bg;
+  font-size: $font-size-large;
+  font-weight: 300;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.page-header {
+  margin: 21px 0;
+}
+
+.page-header h1 {
+  font-size: floor($font-size-h1 * .8);
+}
+
+.page-header small {
+  display: block;
+  font-size: $font-size-h6;
+  margin-top: 15px;
+  color: $gray-light;
+}
+
+.article-content {
+  line-height: ($font-size-large * 1.75);
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.footer li.heading {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
