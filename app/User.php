@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * @property mixed id
+ * @property mixed      id
  * @property Collection posts
+ * @property string     password
  */
 class User extends Authenticatable
 {

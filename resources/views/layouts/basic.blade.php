@@ -7,6 +7,7 @@
 
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
+    <link href='//fonts.googleapis.com/css?family=Gill+Sans' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -30,14 +31,6 @@
     </footer>
 
     {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
-
-    {{--@if (Auth::user())--}}
-        {{--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">--}}
-        {{--<script>--}}
-            {{--$(document).foundation();--}}
-        {{--</script>--}}
-    {{--@endif--}}
-
     @yield('js')
 </body>
 

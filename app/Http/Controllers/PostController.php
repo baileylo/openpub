@@ -15,11 +15,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PostController extends ArticleController
 {
     protected $templates = [
-        'create' => 'post.create'
+        'create' => 'admin.posts.create'
     ];
 
     protected $redirects = [
-        'destroy' => 'admin'
+        'destroy' => 'admin.post.index'
     ];
 
     /**
@@ -27,10 +27,22 @@ class PostController extends ArticleController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->responseFactory->view('post.list', [
-            'posts' => Post::published()->simplePaginate(25)
+        $search_term = $request->input('search');
+        if (!$search_term) {
+            return $this->responseFactory->view('admin.posts.list', [
+                'posts' => Post::orderBy('id', 'desc')->paginate(10)
+            ]);
+        }
+
+        $posts = Post::where('title', 'like', "%{$search_term}%")
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return $this->responseFactory->view('admin.posts.list', [
+            'posts'       => $posts,
+            'search_term' => $search_term
         ]);
     }
 
@@ -39,9 +51,8 @@ class PostController extends ArticleController
      */
     public function overview()
     {
-        return $this->responseFactory->view('post.overview', [
-            'published' => Post::published()->paginate(25),
-            'pending'   => Post::unpublished()->limit(25)->get(),
+        return $this->responseFactory->view('post.list', [
+            'posts' => Post::published()->simplePaginate(25)
         ]);
     }
 
@@ -111,7 +122,9 @@ class PostController extends ArticleController
             $this->getCategories($request->input('categories'))
         );
 
-        return $this->responseFactory->redirectToRoute('resource', $post->slug);
+        return $this->responseFactory
+            ->redirectToRoute('admin.post.edit', $post->slug)
+            ->with('save.status', 'Created');
     }
 
     private function getCategories($categories)
@@ -145,7 +158,7 @@ class PostController extends ArticleController
      */
     public function edit(TemplateProvider $template, $post)
     {
-        return $this->responseFactory->view('post.edit', [
+        return $this->responseFactory->view('admin.posts.edit', [
             'post'      => $this->findBySlug($post, ['categories']),
             'status'    => session('save.status', false),
             'templates' => $template->getTemplates()
@@ -182,9 +195,10 @@ class PostController extends ArticleController
         $post->categories()->sync(
             $this->getCategories($request->input('categories'))->pluck('slug')->toArray()
         );
+
         $save_status = $post->wasRecentlyCreated && !$post->is_published ? 'created' : 'updated';
         return $this->responseFactory
-            ->redirectToRoute('post.edit', $post->slug)
+            ->redirectToRoute('admin.post.edit', $post->slug)
             ->with('save.status', $save_status);
     }
 

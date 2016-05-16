@@ -1,11 +1,5 @@
 @extends('layouts.basic')
 
-@section('tophat')
-    @if(Auth::user())
-        @include('partials.tophat', ['user' => Auth::user()])
-    @endif
-@stop
-
 @section('header')
     <div class="row">
         <div class="default-view col-md-12 text-center visible-md-block visible-sm-block visible-lg-block">
