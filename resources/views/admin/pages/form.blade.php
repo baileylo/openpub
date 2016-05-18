@@ -8,7 +8,7 @@
 
     @if (isset($status) && $status)
         <div class="row">
-            <div class="large-12 columns">
+            <div class="col-lg-12">
                 <div class="alert alert-success text-center" role="alert">
                     Page {{ ucwords($status) }}!
                 </div>

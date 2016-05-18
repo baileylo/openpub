@@ -32,7 +32,8 @@ class PostController extends ArticleController
         $search_term = $request->input('search');
         if (!$search_term) {
             return $this->responseFactory->view('admin.posts.list', [
-                'posts' => Post::orderBy('id', 'desc')->paginate(10)
+                'posts'  => Post::orderBy('id', 'desc')->paginate(10),
+                'status' => session('save.status', false),
             ]);
         }
 
@@ -42,6 +43,7 @@ class PostController extends ArticleController
 
         return $this->responseFactory->view('admin.posts.list', [
             'posts'       => $posts,
+            'status'      => session('save.status', false),
             'search_term' => $search_term
         ]);
     }

@@ -70,7 +70,9 @@ class ArticleController extends Controller
     {
         $this->findBySlug($post)->delete();
 
-        return $this->responseFactory->redirectToRoute($this->redirects['destroy']);
+        return $this->responseFactory
+            ->redirectToRoute($this->redirects['destroy'])
+            ->with('save.status', 'Deleted');
     }
 
     /**

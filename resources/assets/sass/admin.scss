@@ -10,6 +10,10 @@ $text-color: #2B3E50 !default;
   color: $body-bg;
 }
 
+.alert {
+  color: white;
+}
+
 .breadcrumb {
   font-size: $font-size-small;
   padding-left: 0;

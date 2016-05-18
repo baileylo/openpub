@@ -15,6 +15,16 @@
         </div>
     </div>
 
+    @if (isset($status) && $status)
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    Page {{ ucwords($status) }}!
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-lg-12">
             <table class="table admin-article-list">
