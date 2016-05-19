@@ -2,8 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title')</title>
+    <title>@yield('title', 'Logan Bailey | Adventures in Web Development')</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
+
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Logan Bailey | Adventures in Web Development" />
+    
+    @section('ogp')
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ route('home') }}" />
+        <meta property="og:title" content="Logan Bailey | Adventures in Web Development" />
+        <meta property="og:description" content="Logan S Bailey is a learning magazine, covering topics in web development related to program design, javascript, php and laravel." />
+    @show
 
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
