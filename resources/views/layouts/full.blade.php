@@ -33,8 +33,8 @@
             <div class="footer-content">
                 <ul class="list-unstyled">
                     <li class="heading">Follow Me</li>
-                    <li><a href="https://twitter.com/baileylo" target="_blank">Twitter</li>
-                    <li><a href="https://github.com/baileylo" target="_blank">GitHub</li>
+                    <li><a href="https://twitter.com/baileylo" target="_blank">Twitter</a></li>
+                    <li><a href="https://github.com/baileylo" target="_blank">GitHub</a></li>
                 </ul>
             </div>
         </div>
