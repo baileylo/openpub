@@ -43,7 +43,7 @@
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                                 Edit
                             </a>
-                            @include('partials.delete-link', ['url' => route('admin.page.destroy', $page->slug)])
+                            @include('partials.delete-link', ['url' => route('admin.page.destroy', $page->slug), 'confirm' => true])
                         </td>
                     </tr>
                 @endforeach

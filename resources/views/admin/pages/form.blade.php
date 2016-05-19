@@ -70,6 +70,10 @@
 
     <div class="row">
         <div class="col-lg-12 text-right">
+            @if ($page->slug)
+                {{-- You can't view non-saved posts --}}
+                <a class="btn btn-info" href="{{ route('resource', $page->slug) }}" target="_blank">View</a>
+            @endif
             <a class="btn btn-danger" href="{{ route('admin.page.index') }}">Cancel</a>
             <button type="submit" class="btn btn-success">Save</button>
         </div>
