@@ -2,6 +2,10 @@
 
 @section('title', $article->title)
 
+@section('ogp')
+    @include('partials.ogp', ['article' => $article])
+@stop
+
 @section('content')
     <article class="view-article">
         <div class="page-header">
