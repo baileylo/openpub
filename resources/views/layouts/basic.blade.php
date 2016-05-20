@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'Logan Bailey | Adventures in Web Development')</title>
+    <title>@yield('title', $site->getTitle())</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
 
     <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Logan Bailey | Adventures in Web Development" />
+    <meta property="og:site_name" content="{{ $site->getTitle() }}" />
     
     @section('ogp')
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{{ route('home') }}" />
-        <meta property="og:title" content="Logan Bailey | Adventures in Web Development" />
-        <meta property="og:description" content="Logan S Bailey is a learning magazine, covering topics in web development related to program design, javascript, php and laravel." />
+        <meta property="og:title" content="{{ $site->getTitle() }}" />
+        <meta property="og:description" content="{{ $site->getDescription() }}" />
     @show
 
     <link rel="alternate" type="application/atom+xml" title="Logan Bailey &mdash; Adventures In Web Development" href="{{ route('feed') }}" />
@@ -40,8 +40,19 @@
         @yield('footer')
     </footer>
 
-    {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
     @yield('js')
+
+    @if ($site->getGoogleAnalyticsId())
+        <script type="text/javascript">
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', '{{  $site->getGoogleAnalyticsId() }}', 'auto');
+            ga('send', 'pageview');
+        </script>
+    @endif
 </body>
 
 </html>

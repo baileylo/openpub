@@ -8,6 +8,7 @@ use App\Services\Article;
 use App\Services\Category;
 use App\Services\Pagination\FoundationFourPresenter;
 use App\Services\Template\TemplateProvider;
+use App\Site;
 use App\Validators;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Contracts\Cache\Repository;
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         Post::observe($this->app[Article\Events\Post::class]);
         Page::observe($this->app[Article\Events\Page::class]);
 
+        \View::share('site', $this->app[Site::class]);
+
         $validator->extend('template', Validators\Template::class . '@validate');
     }
 
@@ -40,13 +43,22 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment('local')) {
             $this->app->register(IdeHelperServiceProvider::class);
-//            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
 
         $this->app->bind(TemplateProvider::class, function () {
             return $this->app->build(TemplateProvider::class, [
                 'templateDirectory' => resource_path('views/post/templates')
             ]);
+        });
+
+        $this->app->bind(Site::class, function () {
+            return new Site(
+                env('SITE_TITLE', 'My Blog'),
+                env('SITE_DESCRIPTION', 'A blog.'),
+                env('SITE_GA_ID', null),
+                env('SITE_FB_ID', null)
+            );
         });
 
         $this->app->bind(Article\Repository::class, function ($app) {
