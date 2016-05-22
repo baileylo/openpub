@@ -6,6 +6,10 @@
     @include('partials.ogp', ['article' => $article])
 @stop
 
+@section('twitter-card')
+    @include('partials.twitter-card', ['article' => $article])
+@stop
+
 @section('content')
     <article class="view-article">
         <div class="page-header">
@@ -33,6 +37,8 @@
         </div>
 
     </article>
+
+    @include('partials.json-ld', ['article' => $article])
 @stop
 
 @section('js')

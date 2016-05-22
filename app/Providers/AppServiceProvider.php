@@ -57,7 +57,8 @@ class AppServiceProvider extends ServiceProvider
                 env('SITE_TITLE', 'My Blog'),
                 env('SITE_DESCRIPTION', 'A blog.'),
                 env('SITE_GA_ID', null),
-                env('SITE_FB_ID', null)
+                env('SITE_FB_ID', null),
+                env('SITE_TWITTER', null)
             );
         });
 

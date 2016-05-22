@@ -16,12 +16,30 @@ class Site
     /** @var string  */
     protected $description;
 
-    public function __construct($title, $description, $ga_id, $fb_id)
+    /** @var string Non prefix with '@', this is used for twitter cards  */
+    private $twitter_account;
+
+    public function __construct($title, $description, $ga_id, $fb_id, $twitter_account = null)
     {
         $this->title = $title;
         $this->description = $description;
         $this->google_analytics_id = $ga_id;
         $this->facebook_id = $fb_id;
+        $this->twitter_account = $twitter_account;
+    }
+
+    /**
+     * With leading '@'
+     *
+     * @return string
+     */
+    public function getTwitterAccount()
+    {
+        if (!$this->twitter_account) {
+            return null;
+        }
+
+        return '@' . $this->twitter_account;
     }
 
     /**
