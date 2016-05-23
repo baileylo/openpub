@@ -19,10 +19,17 @@ class ArticleController extends Controller
     /** @var ArticleService\Repository */
     private $articleRepository;
 
-    public function __construct(ResponseFactory $responseFactory, ArticleService\Repository $articleRepository)
-    {
+    /** @var ArticleService\Repository\Eloquent */
+    private $cachelessRepository;
+
+    public function __construct(
+        ResponseFactory $responseFactory,
+        ArticleService\Repository $articleRepository,
+        ArticleService\Repository\Eloquent $cachelessRepository
+    ) {
         parent::__construct($responseFactory);
-        $this->articleRepository = $articleRepository;
+        $this->articleRepository   = $articleRepository;
+        $this->cachelessRepository = $cachelessRepository;
     }
 
     /**
@@ -32,10 +39,7 @@ class ArticleController extends Controller
      */
     public function show($slug)
     {
-        $article = $this->articleRepository->findBySlug($slug);
-        if (!$article) {
-            throw new NotFoundHttpException;
-        }
+        $article = $this->findBySlug($slug);
 
         if (!$article->is_published && !\Auth::check()) {
             throw new NotFoundHttpException;
@@ -110,15 +114,20 @@ class ArticleController extends Controller
     /**
      * Find article by slug.
      *
-     * @param string $slug
-     * @param array  $relationships
+     * @param string $slug          The slug of the article to find.
+     * @param array  $relationships A list of relationships to fetch
+     * @param bool   $cacheless     false to search cache, this is the default option
      *
      * @return Article
-     * @throws NotFoundHttpException
      */
-    protected function findBySlug($slug, array $relationships = [])
+    protected function findBySlug($slug, array $relationships = [], $cacheless = false)
     {
-        $article = $this->articleRepository->findBySlug($slug);
+        if ($cacheless) {
+            $article = $this->cachelessRepository->findBySlug($slug);
+        } else {
+            $article = $this->articleRepository->findBySlug($slug);
+        }
+
         if (!$article) {
             throw new NotFoundHttpException();
         }

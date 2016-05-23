@@ -161,7 +161,7 @@ class PostController extends ArticleController
     public function edit(TemplateProvider $template, $post)
     {
         return $this->responseFactory->view('admin.posts.edit', [
-            'post'      => $this->findBySlug($post, ['categories']),
+            'post'      => $this->findBySlug($post, ['categories'], true),
             'status'    => session('save.status', false),
             'templates' => $template->getTemplates()
         ]);
@@ -179,7 +179,7 @@ class PostController extends ArticleController
     public function update(Request $request, CommonMarkConverter $converter, $post)
     {
         /** @var Post $post */
-        $post = $this->findBySlug($post);
+        $post = $this->findBySlug($post, [], true);
 
         $this->validate($request, $this->getValidationRules($post, $request));
 

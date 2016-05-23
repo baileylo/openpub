@@ -70,7 +70,7 @@ class PageController extends ArticleController
     public function edit(TemplateProvider $templateProvider, $slug)
     {
         return $this->responseFactory->view('admin.pages.edit', [
-            'page'      => $this->findBySlug($slug),
+            'page'      => $this->findBySlug($slug, [], true),
             'status'    => session('save.status', false),
             'templates' => $templateProvider->getTemplates()
         ]);
@@ -87,7 +87,7 @@ class PageController extends ArticleController
      */
     public function update(Request $request, CommonMarkConverter $converter, $slug)
     {
-        $page = $this->findBySlug($slug);
+        $page = $this->findBySlug($slug, [], true);
 
         $this->validate($request, [
             'title'       => 'required|string|between:3,255',
