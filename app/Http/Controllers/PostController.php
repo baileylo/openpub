@@ -118,6 +118,10 @@ class PostController extends ArticleController
             $post->published_at = new \DateTime('-5 seconds');
         }
 
+        if ($request->input('published_at')) {
+            $post->published_at = new \DateTime($request->input('published_at'));
+        }
+
         $user->posts()->save($post);
 
         $post->categories()->attach(
@@ -135,6 +139,7 @@ class PostController extends ArticleController
             ->filter()
             ->map(function ($category) {
                 $category = trim($category);
+
                 return ['slug' => str_slug($category), 'name' => $category];
             });
 
@@ -188,8 +193,12 @@ class PostController extends ArticleController
 
         $post = $this->updateArticle($post, $converter, $data);
 
-        if (!$post->is_published && $request->input('isPublished') === 'yes') {
+        if ($request->input('isPublished') === 'yes') {
             $post->published_at = new \DateTime('-5 seconds');
+        }
+
+        if ($request->input('published_at')) {
+            $post->published_at = new \DateTime($request->input('published_at'));
         }
 
         $post->save();
@@ -199,6 +208,7 @@ class PostController extends ArticleController
         );
 
         $save_status = $post->wasRecentlyCreated && !$post->is_published ? 'created' : 'updated';
+
         return $this->responseFactory
             ->redirectToRoute('admin.post.edit', $post->slug)
             ->with('save.status', $save_status);
@@ -208,22 +218,24 @@ class PostController extends ArticleController
     {
         if ($post->is_published || $request->input('isPublished') === 'yes') {
             return [
-                'title'       => 'required|string|between:3,255',
-                'categories'  => 'string',
-                'template'    => 'required|string|template',
-                'description' => 'required|string|min:50',
-                'body'        => 'required|string|min:50',
-                'markdown'    => 'string'
+                'title'        => 'required|string|between:3,255',
+                'categories'   => 'string',
+                'template'     => 'required|string|template',
+                'description'  => 'required|string|min:50',
+                'body'         => 'required|string|min:50',
+                'markdown'     => 'string',
+                'published_at' => 'date'
             ];
         }
 
         return [
-            'title'       => 'required|string|between:3,255',
-            'categories'  => 'string',
-            'template'    => 'required|string|template',
-            'description' => 'string|min:50',
-            'body'        => 'string|min:50',
-            'markdown'    => 'string'
+            'title'        => 'required|string|between:3,255',
+            'categories'   => 'string',
+            'template'     => 'required|string|template',
+            'description'  => 'string|min:50',
+            'body'         => 'string|min:50',
+            'markdown'     => 'string',
+            'published_at' => 'date'
         ];
     }
 }

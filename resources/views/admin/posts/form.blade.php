@@ -54,22 +54,38 @@
             </div>
         </div>
     </div>
-    <div class="row form-group">
-        <div class="col-lg-12 @if($errors->has('body')) has-error @endif">
+    <div class="row">
+        <div class="col-lg-12 form-group @if($errors->has('body')) has-error @endif">
             <label for="body">Body:</label>
             <textarea name="body" id="body" class="form-control" cols="30" rows="8" placeholder="Post: Body of the post written in Markdown">{!! old('body', $post->is_html ? $post->html : $post->markdown) !!}</textarea>
             @if($errors->has('body'))
-                <small class="error">{{ $errors->first('body') }}</small>
+                <small class="help-block">{{ $errors->first('body') }}</small>
             @endif
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="well well-sm form-group">
-                <label for="markdown-toggle" title="Enable markdown parsing of body.">Markdown:</label>
-                <input id="markdown-toggle" type="checkbox" name="is_markdown" value="yes" @if(!$post->is_html) checked @endif>
-                <span></span>
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="markdown-toggle" title="Enable markdown parsing of body.">Markdown:</label>
+                            <input id="markdown-toggle" type="checkbox" name="is_markdown" value="yes" @if(!$post->is_html) checked @endif>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div @if($errors->has('published_at'))class="has-error" @endif>
+                                <label for="published-at"> {{ 'Publish' . ($post->is_published ? 'ed' : '') }} At:</label>
+                                <input id="published-at" class="form-control" type="datetime" name="published_at" value="{{ old('published_at', $post->published_at ? $post->published_at->format('Y-m-d H:i') : '') }}" placeholder="YYYY-MM-DD HH:MM">
+                                @if($errors->has('published_at'))
+                                    <small class="help-block">{{ $errors->first('published_at') }}</small>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
