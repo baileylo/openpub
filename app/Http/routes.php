@@ -34,6 +34,13 @@ Route::group(['middleware' => ['web']], function (Router $router) {
 
     $router->get('feed', ['as' => 'feed', 'uses' => 'PostController@feed']);
 
+    $router->get('{year}/{month}/{day}/{slug}', 'RedirectController@wordPressRedirects')
+        ->where([
+            'year'  => '\d{4}',
+            'month' => '\d{2}',
+            'day'   => '\d{2}'
+        ]);
+
     $router->get('{date}/{slug}', 'RedirectController@wordPressRedirects')
         ->where('date', '\d{4}-\d{2}-\d{2}');
     $router->get('{slug}', ['as' => 'resource', 'uses' => 'ArticleController@show']);

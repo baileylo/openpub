@@ -4,7 +4,7 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "{{ route('resource', $article) }}"
+    "@id": "{{ route('resource', $article->title) }}"
   },
   "headline": "{{ $article->title }}",
   @if ($article->published_at)
