@@ -34,7 +34,7 @@
                 <div class="form-group @if($errors->has('email')) has-error @endif">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
                         </span>
                         <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
                     </div>
@@ -43,7 +43,7 @@
                 <div class="form-group @if($errors->has('password')) has-error @endif">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="fa fa-key" aria-hidden="true"></i>
+                            <i class="fa fa-key fa-fw" aria-hidden="true"></i>
                         </span>
                         <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
